@@ -2,7 +2,7 @@ const url = require('./url')
 
 const loginForm = document.querySelector('#loginForm');
 
-loginForm.addEventListener('submit', login)
+loginForm.addEventListener('submit', requestLogin)
 
 async function requestLogin(e) {
     e.preventDefault();
