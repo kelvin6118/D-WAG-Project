@@ -7,13 +7,15 @@ loginForm.addEventListener('submit', login)
 async function login(e) {
     e.preventDefault();
     try {
-        const response = await fetch(`${url}/users/${username}`);
-        const { id, err } = await response.json();
-        if(err) { 
-            throw Error(err)
-        } else {
-            window.location.hash = `#users/${id}`
+        const options = {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(Object.fromEntries(new FormData(e.target)))
         }
+        const r = await fetch(`${url}/users/login`, options)
+        const data = await r.json()
+        if (data.err){ throw Error(data.err); }
+        login(data);
     } catch (err) {
         console.warn(err);
     }

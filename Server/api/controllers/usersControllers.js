@@ -1,4 +1,5 @@
 const User = require('../models/user');
+const bcrypt = require('bcryptjs')
 
 async function display(req, res) {
     try {
@@ -11,8 +12,17 @@ async function display(req, res) {
 
 async function loginRequest(req, res) {
     try {
-
+        const user = await User.findByUser(req.body.username);
+        if(!user){ throw new Error('No user with this username')};
+        const authed = bcrypt.compare(req.body.password, user.passwordDigest)
+        if (!!authed){
+            res.status(200).json({ user: user.username})
+        } else {
+            throw new Error('User could not be authenticated')
+        } 
+    } catch (err) {
+            res.status(401).json({ err })
+        }
     }
-}
 
-module.exports = { display, getOne }
+module.exports = { display, loginRequest }
