@@ -7,6 +7,6 @@ const userRoutes = require('./routes/usersRoutes')
 server.use(cors());
 server.use(express.json());
 
-server.use('/user', userRoutes)
+server.use('/users', userRoutes)
 
 module.exports = server
