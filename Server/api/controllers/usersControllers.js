@@ -9,10 +9,19 @@ async function display(req, res) {
     }
 }
 
-async function loginRequest(req, res) {
-    try {
+// async function loginRequest(req, res) {
+//     try {
 
+//     }
+// }
+
+async function registerRequest(req, res){
+    try {
+        const user = await User.create(req.body);
+        res.status(201).json(user)
+    } catch (err) {
+        res.status(422).json({err})
     }
 }
 
-module.exports = { display, getOne }
+module.exports = { display, getOne , registerRequest}
