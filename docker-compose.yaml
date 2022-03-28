@@ -5,7 +5,7 @@ services:
     working_dir: /code
     volumes:
       - type: bind
-        source: ./api
+        source: ./Server/api
         target: /code
 
   db:
@@ -14,4 +14,4 @@ services:
       - POSTGRES_USER=dwag
       - POSTGRES_PASSWORD=dwagpass
     volumes:
-      - "./db/migrations:/docker-entrypoint-initdb.d/:ro"
+      - "./Server/db/migrations:/docker-entrypoint-initdb.d/:ro"
