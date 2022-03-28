@@ -17,6 +17,8 @@ async function registerRequest(req, res){
         res.status(201).json(user)
     } catch (err) {
         res.status(422).json({err})
+    }
+}
 
 async function loginRequest(req, res) {
     try {
@@ -31,10 +33,8 @@ async function loginRequest(req, res) {
     } catch (err) {
             res.status(401).json({ err })
         }
-
     }
 
 
 
 module.exports = { display, loginRequest, registerRequest}
-
