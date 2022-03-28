@@ -4,7 +4,7 @@ const loginForm = document.querySelector('#loginForm');
 
 loginForm.addEventListener('submit', login)
 
-async function login(e) {
+async function requestLogin(e) {
     e.preventDefault();
     try {
         const options = {
@@ -20,5 +20,18 @@ async function login(e) {
         console.warn(err);
     }
 }
+
+function login(data) {
+    localStorage.setItem('username', data.user);
+    location.hash = `#dashboard`;
+}
+
+function logout() {
+    localStorage.clear();
+    location.hash = `#login`;
+}
+
+
+
  
 
