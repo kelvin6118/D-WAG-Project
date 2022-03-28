@@ -41,7 +41,7 @@ module.exports = class User {
                 let result = new User(newUser.rows[0])
                 resolve (result.rows[0]);
             } catch (err) {
-                reject('Post could not be created');
+                reject('User could not be created');
             }
         });
     };
