@@ -1,6 +1,6 @@
-DROP TABLE IF EXISTS user;
+DROP TABLE IF EXISTS users;
 
-CREATE TABLE user (
+CREATE TABLE users (
     id serial PRIMARY KEY,
     username VARCHAR(20) NOT NULL UNIQUE,
     password VARCHAR(40) NOT NULL, 
