@@ -1,22 +1,45 @@
-const url = require('./url')
+const url = "http://localhost:3000"
+const loginForm = document.getElementById('loginForm');
 
-const loginForm = document.querySelector('#loginForm');
+loginForm.addEventListener('submit', requestLogin)
 
-loginForm.addEventListener('submit', login)
 
-async function login(e) {
+
+async function requestLogin(e) {
+    console.log(e)
     e.preventDefault();
     try {
-        const response = await fetch(`${url}/users/${username}`);
-        const { id, err } = await response.json();
-        if(err) { 
-            throw Error(err)
-        } else {
-            window.location.hash = `#users/${id}`
+        const messageData = {
+            username: e.target.username.value,
+            password: e.target.password.value
         }
+        
+        const options =  {
+            method: 'POST', 
+            body: JSON.stringify(messageData),
+            headers: { "Content-Type": "application/json"}
+        };
+        console.log(options.body)
+        const r = await fetch(`${url}/users/login`, options)
+        const data = await r.json()
+        if (data.err){ throw Error(data.err); }
+        login(data);
     } catch (err) {
         console.warn(err);
     }
 }
+
+function login(data) {
+    localStorage.setItem('username', data.user);
+    location.hash = `#dashboard`;
+}
+
+function logout() {
+    localStorage.clear();
+    location.hash = `#login`;
+}
+
+
+
  
 
