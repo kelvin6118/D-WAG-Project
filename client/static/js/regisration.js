@@ -12,7 +12,7 @@ async function register(e) {
     }
     // console.log(options.body)
     const response = await fetch('http://localhost:3000/users', options);
-    const {id, err} =  await response.json();
+    const {id, err} = await response.json();
     if(err) {
       throw Error(err)
     } else {
