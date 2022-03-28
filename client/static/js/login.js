@@ -1,17 +1,25 @@
-const url = require('./url')
-
-const loginForm = document.querySelector('#loginForm');
+const url = "http://localhost:3000"
+const loginForm = document.getElementById('loginForm');
 
 loginForm.addEventListener('submit', requestLogin)
 
+
+
 async function requestLogin(e) {
+    console.log(e)
     e.preventDefault();
     try {
-        const options = {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(Object.fromEntries(new FormData(e.target)))
+        const messageData = {
+            username: e.target.username.value,
+            password: e.target.password.value
         }
+        
+        const options =  {
+            method: 'POST', 
+            body: JSON.stringify(messageData),
+            headers: { "Content-Type": "application/json"}
+        };
+        console.log(options.body)
         const r = await fetch(`${url}/users/login`, options)
         const data = await r.json()
         if (data.err){ throw Error(data.err); }
