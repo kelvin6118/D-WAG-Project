@@ -6,11 +6,18 @@ async function register(e) {
   e.preventDefault();
   try {
     const options = {
-        method: 'POST',
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(Object.fromEntries(new FormData(e.target)))
+      method: 'POST',
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(Object.fromEntries(new FormData(e.target)))
     }
-   const response = await fetch('http://localhost:3000/register', options);
+    // console.log(options.body)
+    const response = await fetch('http://localhost:3000/user', options);
+    const {id, err} =  await response.json();
+    if(err) {
+      throw Error(err)
+    } else {
+      console.log(`${id} has been created`)
+    }
 
   } catch (error) {
     console.warn(error);

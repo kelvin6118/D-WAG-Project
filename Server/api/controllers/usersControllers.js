@@ -24,4 +24,4 @@ async function registerRequest(req, res){
     }
 }
 
-module.exports = { display, getOne , registerRequest}
+module.exports = { display, registerRequest}

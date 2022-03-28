@@ -33,13 +33,13 @@ module.exports = class User {
         })
     }
 
-    static async create(userData){
+    static create(userData){
         return new Promise (async (resolve, reject) => {
             try {
                 const { username, password, displayName} = userData
-                let newUser = await db.query('INSERT INTO users (username, password, display_name) VALUES ($1,$2,$3) RETURNING*;',[username, password, displayName]);
+                let newUser = await db.query('INSERT INTO users (username, password, display_name) VALUES ($1,$2,$3) RETURNING *;',[username, password, displayName]);
                 let result = new User(newUser.rows[0])
-                resolve (result.rows[0]);
+                resolve (result);
             } catch (err) {
                 reject('User could not be created');
             }
