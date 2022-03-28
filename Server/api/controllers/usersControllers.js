@@ -10,6 +10,14 @@ async function display(req, res) {
     }
 }
 
+
+async function registerRequest(req, res){
+    try {
+        const user = await User.create(req.body);
+        res.status(201).json(user)
+    } catch (err) {
+        res.status(422).json({err})
+
 async function loginRequest(req, res) {
     try {
         const user = await User.findByUser(req.body.username);
@@ -23,6 +31,10 @@ async function loginRequest(req, res) {
     } catch (err) {
             res.status(401).json({ err })
         }
+
     }
 
-module.exports = { display, loginRequest }
+
+
+module.exports = { display, loginRequest, registerRequest}
+
