@@ -20,7 +20,6 @@ function renderRegisterForm() {
 //*********************  calendar generator **************** */
   let nav = 0;
   let clicked = null;
-  // let habbits =
 
   const container = document.createElement('div');
   container.setAttribute('id', 'container');
@@ -104,11 +103,8 @@ function renderRegisterForm() {
       day: 'numeric',
     });
 
-    //console.log(firstDayOfMonth)
-    //console.log(weekdays)
-    //console.log(dateString)
 
-    const paddingDays = weekdays.indexOf(dateString.split(', ')[1]);
+    const paddingDays = weekdays.indexOf(dateString.split(', ')[0]);
 
     monthDisplay.innerText = `${dt.toLocaleDateString('en-gb', { month: 'long'})} ${year}`
 
@@ -124,7 +120,6 @@ function renderRegisterForm() {
         daySquare.classList.add('padding');
       }
       calendar.appendChild(daySquare)
-
     }
     main.appendChild(container);
   }

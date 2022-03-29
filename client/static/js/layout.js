@@ -21,7 +21,7 @@ function updateMain(path) {
             case '#calendar':
                 renderCalendar(); break;*/
             case '#dashboard':
-                loadCalendar();; break;
+                loadCalendar(); break;
             default:
                 render404(); break;
         }
