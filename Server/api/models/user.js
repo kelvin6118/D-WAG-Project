@@ -12,8 +12,8 @@ module.exports = class User {
     static get all(){
         return new Promise (async (resolve, reject) => {
             try {
-                const result = await db.query('SELECT users.id, users.username, users.password FROM users;')
-                const users = result.rows.map(u => ({ id: u.id, username:u.username, password:u.password }));
+                const result = await db.query('SELECT users.id, users.username, users.password, users.display_name FROM users;')
+                const users = result.rows.map(u => ({ id: u.id, username:u.username, password:u.password, displayName: u.display_name }));
                 resolve(users)
             } catch (err) {
                 reject("Error getting users")

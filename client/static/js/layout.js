@@ -9,6 +9,7 @@ window.addEventListener('hashchange', updateContent);
 
 
 function updateMain(path) {
+    const username = localStorage.getItem('username')
     main.innerHTML = '';
     if (path) {
         switch(path){
@@ -20,7 +21,7 @@ function updateMain(path) {
                 renderRegisterForm(); break;
             case '#dashboard':
                 renderlogo(),
-                renderProfile(),
+                renderProfile(username),
                 renderLogout(),
                 renderHabit();
                 // renderCalendar(); 

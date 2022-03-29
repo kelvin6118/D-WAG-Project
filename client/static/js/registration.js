@@ -11,8 +11,8 @@ async function register(e) {
     console.log(options.body)
     const data = await response.json();
     console.log(data)
-    if(err) {
-      throw Error(err)
+    if(data.err) {
+      throw Error(data.err)
     } else {
       console.log(`${data.id} has been created`)
       requestLogin(e);

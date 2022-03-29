@@ -39,9 +39,11 @@ form.id = 'loginForm'
 
 async function renderProfile(username){
     const profile = document.createElement('section');
+    profile.id="profile"
     const greeting = document.createElement('h3');
     const userInfo = await getUserInfo(username);
-    greeting.textContent = `Good to see you, ${userInfo.displayName}!`;
+    console.log(userInfo)
+    greeting.textContent = `Good to see you ${userInfo.displayName}!`;
     profile.appendChild(greeting);
     main.appendChild(profile);
 }
