@@ -26,7 +26,7 @@ async function loginRequest(req, res) {
     try {
         const user = await User.findByUser(req.body.username);
         if(!user){ throw new Error('No user with this username')};
-        const authed = bcrypt.compare(req.body.password, user.passwordDigest)
+        const authed = await bcrypt.compare(req.body.password, user.password)
         if (!!authed){
             res.status(200).json({ user: user.username})
         } else {
