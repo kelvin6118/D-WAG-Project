@@ -13,8 +13,8 @@ async function display(req, res) {
 
 async function registerRequest(req, res){
     try {
-        const user = await User.create(req.body);
-        res.status(201).json(user)
+        await User.create(req.body)
+        res.status(201).json({msg: 'User Created'})
     } catch (err) {
         res.status(422).json({err})
     }
@@ -24,7 +24,7 @@ async function loginRequest(req, res) {
     try {
         const user = await User.findByUser(req.body.username);
         if(!user){ throw new Error('No user with this username')};
-        const authed = bcrypt.compare(req.body.password, user.passwordDigest)
+        const authed = await bcrypt.compare(req.body.password, user.password)
         if (!!authed){
             res.status(200).json({ user: user.username})
         } else {

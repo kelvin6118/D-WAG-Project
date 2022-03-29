@@ -22,6 +22,7 @@ async function requestLogin(e) {
         console.log(options.body)
         const r = await fetch(`${url}/users/login`, options)
         const data = await r.json()
+        console.log(data)
         if (data.err){ throw Error(data.err); }
         login(data);
     } catch (err) {
