@@ -17,6 +17,20 @@ function renderRegisterForm() {
     main.appendChild(form);
   }
 
+  function renderCalendar(){
+
+  }
+
+
+
+
+
+
+
+
+
+
+  
   function currentUser(){
     const username = localStorage.getItem('username')
     return username;
