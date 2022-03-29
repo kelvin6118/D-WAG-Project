@@ -94,13 +94,18 @@ function renderRegisterForm() {
     if (nav !== 0){
       dt.setMonth(new Date().getMonth() + nav);
     }
+
+    if (nav === -1){
+        dt.setMonth(new Date().getMonth() - 1);
+    }
+
     const day = dt.getDate();
     const month = dt.getMonth();
     const year = dt.getFullYear();
 
     const firstDayOfMonth = new Date(year, month, 1);
     const daysInMonth = new Date(year, month + 1, 0).getDate();
-    const dateString = firstDayOfMonth.toLocaleDateString('en-gb', {
+    const dateString = firstDayOfMonth.toLocaleDateString('en-GB', {
       weekday: "long",
       year: "numeric",
       month: 'numeric',
@@ -111,7 +116,7 @@ function renderRegisterForm() {
 
     const paddingDays = weekdays.indexOf(dateString.split(', ')[0]);
 
-    monthDisplay.innerText = `${dt.toLocaleDateString('en-us', { month: 'long'})} ${year}`
+    monthDisplay.innerText = `${dt.toLocaleDateString('en-GB', { month: 'long'})} ${year}`
 
     calendar.innerHTML = '';
 
