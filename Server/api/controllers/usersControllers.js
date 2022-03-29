@@ -13,8 +13,10 @@ async function display(req, res) {
 
 async function registerRequest(req, res){
     try {
-        await User.create(req.body)
-        res.status(201).json({msg: 'User Created'})
+        const salt = await bcrypt.genSalt();
+        const hashed = await bcrypt.hash(req.body.password, salt)
+        const user = await User.create({...req.body, password: hashed});
+        res.status(201).json(user)
     } catch (err) {
         res.status(422).json({err})
     }
@@ -29,7 +31,7 @@ async function loginRequest(req, res) {
             res.status(200).json({ user: user.username})
         } else {
             throw new Error('User could not be authenticated')
-        } 
+        }
     } catch (err) {
             res.status(401).json({ err })
         }
