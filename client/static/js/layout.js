@@ -5,29 +5,31 @@ const main = document.querySelector('main');
 const publicRoutes = ['#', '#login', '#register'];
 const privateRoutes = ['#feed', '#profile'];
 
+window.addEventListener('hashchange', updateContent);
+
 
 function updateMain(path) {
     main.innerHTML = '';
     if (path) {
         switch(path){
             case '#login':
+                renderFullLogo(),
                 renderLoginForm(); break;
             case '#register':
+                renderFullLogo(),
                 renderRegisterForm(); break;
-            /*case '#habit':
-                renderHabit(); break;
-            case '#profile':
-                renderProfile(); break;
-            case '#calendar':
-                renderCalendar(); break;
-            case '#dashborad':
+            case '#dashboard':
+                renderlogo(),
                 renderProfile(),
-                renderHabit(),
-                renderCalendar(); break;*/
+                renderLogout(),
+                renderHabit();
+                // renderCalendar(); 
+                break;
             default:
                 render404(); break;
         }
     } else {
+        renderFullLogo(),
         renderRegisterForm();
         //renderHomepage();
     }

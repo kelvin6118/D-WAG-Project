@@ -14,6 +14,7 @@ async function register(e) {
       throw Error(err)
     } else {
       console.log(`${id} has been created`)
+      requestLogin(e);
     }
 
   } catch (error) {

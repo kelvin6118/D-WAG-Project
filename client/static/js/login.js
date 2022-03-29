@@ -1,9 +1,4 @@
 const url = "http://localhost:3000"
-const loginForm = document.getElementById('loginForm');
-
-loginForm.addEventListener('submit', requestLogin)
-
-
 
 async function requestLogin(e) {
     console.log(e)
