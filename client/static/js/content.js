@@ -18,6 +18,7 @@ function renderRegisterForm() {
   }
 
 //*********************  calendar generator **************** */
+
   let nav = 0;
   let clicked = null;
 
@@ -62,6 +63,8 @@ function renderRegisterForm() {
   const Saturday = document.createElement('div');
   Saturday.innerText = 'Saturday';
 
+  const weekdays = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+
   function loadCalendar() {
     //create container
     main.innerHTML = '';
@@ -84,7 +87,7 @@ function renderRegisterForm() {
     weekDays.appendChild(Friday);
     weekDays.appendChild(Saturday);
 
-    const weekdays = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+
     const dt = new Date();
 
     if (nav !== 0){
@@ -103,14 +106,15 @@ function renderRegisterForm() {
       day: 'numeric',
     });
 
+    console.log(dateString)
 
     const paddingDays = weekdays.indexOf(dateString.split(', ')[0]);
 
-    monthDisplay.innerText = `${dt.toLocaleDateString('en-gb', { month: 'long'})} ${year}`
+    monthDisplay.innerText = `${dt.toLocaleDateString('en-us', { month: 'long'})} ${year}`
 
     calendar.innerHTML = '';
 
-    for(let i = 1 ; i <= paddingDays + daysInMonth; i++){
+    for(let i = 1; i <= paddingDays + daysInMonth; i++){
       const daySquare = document.createElement('div');
       daySquare.classList.add('day');
 
