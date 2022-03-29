@@ -19,16 +19,14 @@ function updateMain(path) {
             case '#profile':
                 renderProfile(); break;
             case '#calendar':
-                renderCalendar(); break;
-            case '#dashborad':
-                renderProfile(),
-                renderHabit(),
                 renderCalendar(); break;*/
+            case '#dashboard':
+                loadCalendar();; break;
             default:
                 render404(); break;
         }
     } else {
-        renderRegisterForm();
+
         //renderHomepage();
     }
 }

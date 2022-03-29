@@ -22,16 +22,72 @@ function renderRegisterForm() {
   let clicked = null;
   // let habbits =
 
+  const container = document.createElement('div');
+  container.setAttribute('id', 'container');
 
+  const header = document.createElement('div');
+  header.setAttribute('id', 'header');
+
+  const monthDisplay = document.createElement('div');
+  monthDisplay.setAttribute('id', 'monthDisplay');
+
+  const buttonContainer = document.createElement('div');
+  buttonContainer.setAttribute('id', 'buttonContainer');
+
+  const backButton= document.createElement('Button');
+  backButton.setAttribute('id', 'backButton');
+  backButton.innerText = 'Back';
+
+  const nextButton= document.createElement('Button');
+  nextButton.setAttribute('id', 'nextButton');
+  nextButton.innerText = 'Next';
+
+  const weekDays= document.createElement('div');
+  weekDays.setAttribute('id', 'weekdays');
+
+  const calendar= document.createElement('div');
+  calendar.setAttribute('id', 'calendar');
+
+  const Sunday = document.createElement('div');
+  Sunday.innerText = 'Sunday';
+  const Monday = document.createElement('div');
+  Monday.innerText = 'Monday';
+  const Tuesday = document.createElement('div');
+  Tuesday.innerText = 'Tuesday';
+  const Wednesday = document.createElement('div');
+  Wednesday.innerText = 'Wednesday';
+  const Thursday = document.createElement('div');
+  Thursday.innerText = 'Thursday';
+  const Friday = document.createElement('div');
+  Friday.innerText = 'Friday';
+  const Saturday = document.createElement('div');
+  Saturday.innerText = 'Saturday';
 
   function loadCalendar() {
     //create container
+    main.innerHTML = '';
 
+    container.appendChild(header);
+    container.appendChild(weekDays);
+    container.appendChild(calendar);
 
-    const calendar = document.getElementById('calendar')
+    header.appendChild(monthDisplay);
+    header.appendChild(buttonContainer);
+
+    buttonContainer.appendChild(backButton);
+    buttonContainer.appendChild(nextButton);
+
+    weekDays.appendChild(Sunday);
+    weekDays.appendChild(Monday);
+    weekDays.appendChild(Tuesday);
+    weekDays.appendChild(Wednesday);
+    weekDays.appendChild(Thursday);
+    weekDays.appendChild(Friday);
+    weekDays.appendChild(Saturday);
+
     const weekdays = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
     const dt = new Date();
-    //  console.log(dt)
+
     if (nav !== 0){
       dt.setMonth(new Date().getMonth() + nav);
     }
@@ -48,13 +104,13 @@ function renderRegisterForm() {
       day: 'numeric',
     });
 
-// console.log(firstDayOfMonth)
-        console.log(weekdays)
-        console.log(dateString)
+    //console.log(firstDayOfMonth)
+    //console.log(weekdays)
+    //console.log(dateString)
 
     const paddingDays = weekdays.indexOf(dateString.split(', ')[1]);
 
-    document.getElementById('monthDisplay').innerText = `${dt.toLocaleDateString('en-gb', { month: 'long'})} ${year}`
+    monthDisplay.innerText = `${dt.toLocaleDateString('en-gb', { month: 'long'})} ${year}`
 
     calendar.innerHTML = '';
 
@@ -70,25 +126,23 @@ function renderRegisterForm() {
       calendar.appendChild(daySquare)
 
     }
+    main.appendChild(container);
   }
 
   function initButtons() {
-    document.getElementById('nextButton').addEventListener('click', () => {
+    nextButton.addEventListener('click', () => {
       nav++
       loadCalendar();
     }
     );
-    document.getElementById('backButton').addEventListener('click', () => {
+    backButton.addEventListener('click', () => {
       nav--
       loadCalendar();
     }
     );
-
   }
+
   initButtons();
-  loadCalendar();
-
-
 
   function currentUser(){
     const username = localStorage.getItem('username')
