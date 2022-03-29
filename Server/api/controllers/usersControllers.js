@@ -37,6 +37,16 @@ async function loginRequest(req, res) {
         }
     }
 
+async function getUser (req, res) {
+    try {
+        const user = await User.findByUser(req.params.
+            username);
+        res.status(200).json(user)
+    } catch (err) {
+        res.status(404).json({err})
+    }
+}
 
 
-module.exports = { display, loginRequest, registerRequest}
+
+module.exports = { display, loginRequest, registerRequest, getUser}
