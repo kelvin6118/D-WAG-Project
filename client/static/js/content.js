@@ -17,18 +17,24 @@ function renderRegisterForm() {
     main.appendChild(form);
   }
 
-
+//*********************  calendar generator **************** */
   let nav = 0;
   let clicked = null;
   // let habbits =
 
-  const calender = document.getElementById('calendar')
-  const weekdays = ['Sunday', 'Monday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 
-  function loadCalender() {
+
+  function loadCalendar() {
     //create container
+
+
+    const calendar = document.getElementById('calendar')
+    const weekdays = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
     const dt = new Date();
     //  console.log(dt)
+    if (nav !== 0){
+      dt.setMonth(new Date().getMonth() + nav);
+    }
     const day = dt.getDate();
     const month = dt.getMonth();
     const year = dt.getFullYear();
@@ -42,9 +48,17 @@ function renderRegisterForm() {
       day: 'numeric',
     });
 
-    const paddingDays = weekdays.indexOf(dateString.split(', ')[0]);
+// console.log(firstDayOfMonth)
+        console.log(weekdays)
+        console.log(dateString)
 
-    for(let i = 1; i <= paddingDays + daysInMonth; i++){
+    const paddingDays = weekdays.indexOf(dateString.split(', ')[1]);
+
+    document.getElementById('monthDisplay').innerText = `${dt.toLocaleDateString('en-gb', { month: 'long'})} ${year}`
+
+    calendar.innerHTML = '';
+
+    for(let i = 1 ; i <= paddingDays + daysInMonth; i++){
       const daySquare = document.createElement('div');
       daySquare.classList.add('day');
 
@@ -53,17 +67,26 @@ function renderRegisterForm() {
       }else{
         daySquare.classList.add('padding');
       }
-      calender.appendChild(daySquare)
+      calendar.appendChild(daySquare)
 
     }
-
   }
 
-  loadCalender()
-
-  function renderCalendar(){
+  function initButtons() {
+    document.getElementById('nextButton').addEventListener('click', () => {
+      nav++
+      loadCalendar();
+    }
+    );
+    document.getElementById('backButton').addEventListener('click', () => {
+      nav--
+      loadCalendar();
+    }
+    );
 
   }
+  initButtons();
+  loadCalendar();
 
 
 
