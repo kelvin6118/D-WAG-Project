@@ -68,7 +68,7 @@ function renderRegisterForm() {
 
   function loadCalendar() {
     //create container
-    main.innerHTML = '';
+    container.innerHTML = '';
 
     container.appendChild(header);
     container.appendChild(weekDays);
@@ -140,9 +140,9 @@ function renderRegisterForm() {
       loadCalendar();
     }
     );
-  }
+}
 
-  initButtons();
+initButtons();
 
 function renderLoginForm() {
     const fields = [
