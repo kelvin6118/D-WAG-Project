@@ -19,12 +19,13 @@ function updateMain(path) {
             case '#register':
                 renderFullLogo(),
                 renderRegisterForm(); break;
+
             case '#dashboard':
                 renderlogo(),
                 renderProfile(username),
                 renderLogout(),
-                renderHabit();
-                // renderCalendar(); 
+                renderHabit(),
+                loadCalendar();
                 break;
             default:
                 render404(); break;
