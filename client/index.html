@@ -6,12 +6,24 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="static/css/index.css">
     <script defer src='static/js/index.js'></script>
+    <script defer src='static/js/regisration.js'></script>
     <script defer src='static/js/login.js'></script>
     <title>Document</title>
     <link rel="icon" type="image/x-icon" href="./static/resources/H Favicon.png">
 </head>
 <body>
-    <h1>hello</h1>
+
+    <section id="reg-container">
+      <form class="registration-form">
+        <label for="userName">Username: </label>
+        <input required type="text" name = "username" class="username">
+        <label for="passWord">Password: </label>
+        <input required type="password" name = "password" class="password">
+        <label for="displayName">displayName: </label>
+        <input required type="text" name = "display_name" class="displayname">
+        <input type="submit" id="submit-btn" value="register" />
+      </form>
+    </section>
 
     <form id="loginForm">
         <label for="username">username</label>
@@ -20,5 +32,6 @@
         <input id="password" type="password">
         <input type="submit">
     </form>
+
 </body>
 </html>
