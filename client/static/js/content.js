@@ -37,10 +37,11 @@ form.id = 'loginForm'
     main.appendChild(form);
 }
 
-function renderProfile(){
+async function renderProfile(username){
     const profile = document.createElement('section');
     const greeting = document.createElement('h3');
-    greeting.textContent = `Good to see you, ${localStorage.getItem('username')}!`;
+    const userInfo = await getUserInfo(username);
+    greeting.textContent = `Good to see you, ${userInfo.displayName}!`;
     profile.appendChild(greeting);
     main.appendChild(profile);
 }

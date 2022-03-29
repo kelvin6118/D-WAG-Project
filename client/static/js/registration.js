@@ -8,12 +8,13 @@ async function register(e) {
     }
     // console.log(options.body)
     const response = await fetch('http://localhost:3000/users', options);
-    const {id, err} = await response.json();
-    console.log({id, err})
+    console.log(options.body)
+    const data = await response.json();
+    console.log(data)
     if(err) {
       throw Error(err)
     } else {
-      console.log(`${id} has been created`)
+      console.log(`${data.id} has been created`)
       requestLogin(e);
     }
 

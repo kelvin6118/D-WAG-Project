@@ -6,7 +6,7 @@ module.exports = class User {
         this.id = data.id;
         this.username = data.username;
         this.password = data.password;
-        this.displayName = data.displayName;
+        this.displayName = data.display_name;
     };
 
     static get all(){
@@ -24,7 +24,7 @@ module.exports = class User {
     static findByUser(username){
         return new Promise (async (resolve, reject) => {
             try {
-                const result = await db.query('SELECT users.*,  FROM users WHERE username = $1;', [ username ]);
+                const result = await db.query('SELECT users.id, users.username, users.display_name, users.password FROM users WHERE username = $1;', [ username ]);
                 let user = new User(result.rows[0]);
                 resolve(user);
             } catch (err) {
@@ -45,5 +45,18 @@ module.exports = class User {
             }
         });
     };
+
+    // static getUserInfo(username){
+    //     return new Promise (async(resolve, reject) => {
+    //         try {
+    //             let userData = await db.query(`SELECT users.*, users.username as user_name, users.display_name as user_display FROM userTrackers JOIN activityTrackers ON userTrackers.activity_ID = activityTrackers.id JOIN users ON activityTrackers.user_ID = users.id WHERE userTrackers.id = $1;`, [id]);
+    //             let user = new Tracker(userData.rows[0]);
+    //             resolve(user);
+    //         } catch (err) {
+    //             reject('User not found')
+    //         }
+    //     });
+    // }
+
 
 }
