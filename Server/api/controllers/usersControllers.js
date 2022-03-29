@@ -13,28 +13,40 @@ async function display(req, res) {
 
 async function registerRequest(req, res){
     try {
-        const user = await User.create(req.body);
+        const salt = await bcrypt.genSalt();
+        const hashed = await bcrypt.hash(req.body.password, salt)
+        const user = await User.create({...req.body, password: hashed});
         res.status(201).json(user)
     } catch (err) {
         res.status(422).json({err})
+    }
+}
 
 async function loginRequest(req, res) {
     try {
         const user = await User.findByUser(req.body.username);
         if(!user){ throw new Error('No user with this username')};
-        const authed = bcrypt.compare(req.body.password, user.passwordDigest)
+        const authed = await bcrypt.compare(req.body.password, user.password)
         if (!!authed){
             res.status(200).json({ user: user.username})
         } else {
             throw new Error('User could not be authenticated')
-        } 
+        }
     } catch (err) {
             res.status(401).json({ err })
         }
-
     }
 
+async function getUser (req, res) {
+    try {
+        const user = await User.findByUser(req.params.
+            username);
+        res.status(200).json(user)
+    } catch (err) {
+        res.status(404).json({err})
+    }
+}
 
 
-module.exports = { display, loginRequest, registerRequest}
 
+module.exports = { display, loginRequest, registerRequest, getUser}

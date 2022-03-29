@@ -1,7 +1,3 @@
-const form = document.querySelector('.registration-form');
-
-form.addEventListener('submit', register);
-
 async function register(e) {
   e.preventDefault();
   try {
@@ -12,11 +8,14 @@ async function register(e) {
     }
     // console.log(options.body)
     const response = await fetch('http://localhost:3000/users', options);
-    const {id, err} = await response.json();
-    if(err) {
-      throw Error(err)
+    console.log(options.body)
+    const data = await response.json();
+    console.log(data)
+    if(data.err) {
+      throw Error(data.err)
     } else {
-      console.log(`${id} has been created`)
+      console.log(`${data.id} has been created`)
+      requestLogin(e);
     }
 
   } catch (error) {
