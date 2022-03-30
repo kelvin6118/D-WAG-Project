@@ -1,11 +1,18 @@
-INSERT INTO users (username, password, display_name)
+INSERT INTO users (username, password, display_name, habit_ID, tracker_ID, activity_ID)
 VALUES
-('Graingertom', 'qwerty', 'Tom');
+('Graingertom', 'qwerty', 'Tom', 1, 1, 1);
 
-INSERT INTO userTrackers (activity_ID, date)
+INSERT INTO userTrackers (habit_ID, date)
 VALUES
-(1, '2022-03-29');
+(1, '29/03/2022');
 
-INSERT INTO activityTrackers (user_ID, habit_ID, frequency)
+INSERT INTO activityTrackers (habit_ID, frequency, number)
 VALUES
-(1, 1, 2);
+(1, 2, 3);
+
+INSERT INTO habits (habit_name)
+VALUES
+('Drink Water'),
+('Sleep'),
+('Read'),
+('Steps');
