@@ -4,8 +4,15 @@ VALUES
 
 INSERT INTO userTrackers (activity_ID, date)
 VALUES
-(1, '2022-03-29');
+(1, '29/03/2022');
 
-INSERT INTO activityTrackers (user_ID, habit_ID, frequency)
+INSERT INTO activityTrackers (user_ID, habit_ID, frequency, number)
 VALUES
-(1, 1, 2);
+(1, 1, 2, 3);
+
+INSERT INTO habits (habit_name)
+VALUES
+('Drink Water'),
+('Sleep'),
+('Read'),
+('Steps');
