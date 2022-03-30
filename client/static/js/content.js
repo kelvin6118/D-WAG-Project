@@ -158,16 +158,7 @@ function renderFullLogo(){
 }
 
 function renderHabit(){
-    const habitSection = document.createElement('section');
-    const title = document.createElement('h3');
-    title.textContent = `Habits you're tracking`
-    const habitList = document.createElement('ul');
-    const habit1 = document.createElement('li');
-    habit1.textContent = `Hit daily step count`;
-    const habit2 = document.createElement('li');
-    habit2.textContent = `Drink 3 glasses of water`;
-    const habit3 = document.createElement('li');
-    habit3.textContent = `Read for 30 minutes`;
+    
     const dropdown = document.createElement('select');
     const habitTitle = document.createElement('label');
     const dailySteps = document.createElement('option');
@@ -213,23 +204,26 @@ async function trackedHabits(username) {
     const trackingSection = document.createElement('section');
     const habitForm = document.createElement('form');
     const title = document.createElement('h3');
-    title.textContent = `Habits you're tracking`
+    title.textContent = `Habits you're tracking`;
+    const submit = document.createElement('input')
+    submit.type = 'submit';
     
-    for( habit in userInfo.habits){
+    for(let i = 0; i < userInfo.length; i++){
       const habit = document.createElement('input');
+      const habitLabel = document.createElement('label');
       habit.type = 'radio';
-      habit.id = `habit`+ `${userInfo.habits.id}`;
-      habit.name = 'habit' + `${userInfo.habits.id}`;
-    habit.value = `${userInfo.habits.habitName}`;
-    const habitLabel = document.createElement('label');
-    habitLabel.for = 'habit' + `${userInfo.habits.id}`;
-    habitLabel.innerText = `${userInfo.habits.habitName}`;
-    }
+      habit.id = `habit`+ `${userInfo[i].habits.id}`;
+      habit.name = 'habit' + `${userInfo[i].habits.id}`;
+    habit.value = `${userInfo[i].habits.habitName}`;
+    habitLabel.for = 'habit' + `${userInfo[i].habits.id}`;
+    habitLabel.innerText = `${userInfo[i].habits.habitName}`;
 
     main.appendChild(trackingSection)
     trackingSection.appendChild(habitForm);
     habitForm.appendChild(title);
     habitForm.appendChild(habit);
     habitForm.appendChild(habitLabel);
+    }
+
 
 }
