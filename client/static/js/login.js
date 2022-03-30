@@ -27,6 +27,7 @@ async function requestLogin(e) {
 
 function login(data) {
     localStorage.setItem('username', data.user);
+    localStorage.setItem('userID', data.userID)
     location.hash = `#dashboard`;
 }
 

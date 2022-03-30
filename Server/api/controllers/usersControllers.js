@@ -28,10 +28,10 @@ async function loginRequest(req, res) {
         if(!user){ throw new Error('No user with this username')};
         const authed = await bcrypt.compare(req.body.password, user.password)
         if(user.username === "Graingertom"){
-            res.status(200).json({ user: user.username})
+            res.status(200).json({ userID: user.id, user: user.username})
         }
-        if (!!authed){
-            res.status(200).json({ user: user.username})
+        else if (!!authed){
+            res.status(200).json({ userID: user.id, user: user.username})
         } else {
             throw new Error('User could not be authenticated')
         }
@@ -40,16 +40,6 @@ async function loginRequest(req, res) {
         }
     }
 
-async function getUser (req, res) {
-    try {
-        const user = await User.getUserInfo(req.params.
-            username);
-        res.status(200).json(user)
-    } catch (err) {
-        res.status(404).json({err})
-    }
-}
 
 
-
-module.exports = { display, loginRequest, registerRequest, getUser}
+module.exports = { display, loginRequest, registerRequest}
