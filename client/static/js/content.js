@@ -160,19 +160,26 @@ function renderFullLogo(){
 async function renderHabit(){
     const getHabitList = await getHabits();
     const habitSection = document.createElement('section')
+    const selectForm = document.createElement('form');
     const dropdown = document.createElement('select');
     const habitTitle = document.createElement('label');
+    const textbox1 = document.createElement('input');
+    const textbox2 = document.createElement('input');
     const submit = document.createElement('input');
     const text = document.createElement('p');
     submit.type = 'submit';
+    textbox1.type = 'text';
+    textbox2.type = 'text';
     dropdown.name = "habits";
     dropdown.id = "habits";
     habitTitle.for = "habits";
     habitTitle.innerText = "Track a new habit:";
     main.appendChild(habitSection);
     habitSection.appendChild(habitTitle);
-    habitSection.appendChild(dropdown);
-    habitSection.appendChild(text)
+    habitSection.appendChild(selectForm)
+    selectForm.appendChild(dropdown);
+    selectForm.appendChild(text);
+    selectForm.appendChild(textbox1);
     let habitOption;
     let selectedValue;
     
@@ -215,8 +222,9 @@ async function renderHabit(){
     frequencyText.innerText = `How often would you like to track this a week?`
 
     
-    habitSection.appendChild(frequencyText)
-    habitSection.appendChild(submit)
+    selectForm.appendChild(frequencyText)
+    selectForm.appendChild(textbox2)
+    selectForm.appendChild(submit)
 }
 
   function render404() {
@@ -241,7 +249,7 @@ async function trackedHabits(username) {
     for(let i = 0; i < userInfo.length; i++){
       const habit = document.createElement('input');
       const habitLabel = document.createElement('label');
-      habit.type = 'radio';
+      habit.type = 'checkbox';
       habit.id = `habit`+ `${userInfo[i].habits.id}`;
       habit.name = 'habit' + `${userInfo[i].habits.id}`;
     habit.value = `${userInfo[i].habits.habitName}`;
