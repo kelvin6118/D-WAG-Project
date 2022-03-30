@@ -1,5 +1,3 @@
-//*********************  calendar generator **************** */
-
   let nav = 0;
   let clicked = null;
 
@@ -46,9 +44,12 @@
 
   const weekdays = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 
-async function loadCalendar(userID) {
+
+async function loadCalendar() {
     //create container
-    let userInfo = await getUserInfo(userID);
+    let userInfo = await getUserInfo();
+    console.log("load Calendar " , userInfo);
+
     container.innerHTML = '';
 
     container.appendChild(header);
@@ -159,7 +160,60 @@ async function loadCalendar(userID) {
     main.appendChild(container);
   }
 
-  function initButtons() {
+  function DateCalculator(start, end){
+    var date1 = new Date(start);
+    var date2 = new Date(end);
+    var Difference_In_Time = date2.getTime() - date1.getTime();
+    var Difference_In_Days = Difference_In_Time / (1000 * 3600 * 24);
+
+    return Difference_In_Days;
+  }
+
+
+  // ********** future features function for streak [ CODE NOT IN USE YET ]************
+  function streakCounter(userInfo){
+    userInfo.reverse();
+    let start = "";
+    let end = "";
+    let counter = 0;
+    let activityCount = 0;
+    let streak = 0;
+
+
+    userInfo.forEach(obj => {
+      let eventDate = obj["tracker"].date;
+      let frequency = obj["activity"].frequency;
+
+      if(start === ""){
+        start = eventDate;
+      }else{
+        end = eventDate;
+        let dayDiff = DateCalculator(start, end);
+
+        if((counter + dayDiff) > 7){
+          activityCount = 0;
+          counter = counter - 7 + dayDiff;
+
+          if(activityCount > frequency){
+            streak ++;
+          }else{
+            streak = 0;
+          }
+
+          start = end;
+
+        }else{
+          activityCount++;
+          counter += dayDiff;
+          start = end;
+        }
+      }
+    })
+
+  }
+
+
+function initButtons() {
     nextButton.addEventListener('click', () => {
       nav++
       loadCalendar();
@@ -175,11 +229,11 @@ async function loadCalendar(userID) {
 initButtons();
 
 
-async function renderProfile(userID){
+async function renderProfile(){
     const profile = document.createElement('section');
     profile.id="profile"
     const greeting = document.createElement('h3');
-    const userInfo = await getUserInfo(userID);
+    const userInfo = await getUserInfo();
     console.log(userInfo)
     greeting.textContent = `Good to see you ${userInfo.displayName}!`;
     profile.appendChild(greeting);

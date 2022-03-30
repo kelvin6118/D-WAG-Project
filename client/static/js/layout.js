@@ -8,8 +8,10 @@ const privateRoutes = ['#feed', '#profile'];
 window.addEventListener('hashchange', updateContent);
 
 
-function updateMain(path) {
-    const id = localStorage.getItem('userID')
+async function updateMain(path) {
+
+    id = window.localStorage.getItem("userID");
+
     main.innerHTML = '';
     if (path) {
         switch(path){
@@ -22,10 +24,10 @@ function updateMain(path) {
 
             case '#dashboard':
                 renderlogo(),
-                renderProfile(id),
+                renderProfile(),
                 renderLogout(),
                 renderHabit(),
-                loadCalendar(id);
+                loadCalendar();
                 break;
             default:
                 render404(); break;
