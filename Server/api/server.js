@@ -7,9 +7,9 @@ server.use(cors());
 server.use(express.json());
 
 const userRoutes = require('./routes/usersRoutes')
-server.use('/users', userRoutes);
-
 const habitsRoutes = require('./routes/habitsRoutes')
+
+server.use('/users', userRoutes);
 server.use('/habits', habitsRoutes);
 
 server.get('/', (req, res) => res.send('Welcome to Habit Tracker 😊'))

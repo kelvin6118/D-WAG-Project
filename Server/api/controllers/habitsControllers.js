@@ -1,14 +1,4 @@
-const HabitsTracked = require('../models/habit');
-const Habits = require('../models/habit');
-
-async function getUser (req, res) {
-    try {
-        const user = await HabitsTracked.getHabitsTracked(req.params.id);
-        res.status(200).json(user)
-    } catch (err) {
-        res.status(404).json({err})
-    }
-}
+const Habits = require('../models/Habits');
 
 async function display (req, res) {
     try{
@@ -19,4 +9,4 @@ async function display (req, res) {
     }
 }
 
-module.exports = { getUser, display }
+module.exports = { display }

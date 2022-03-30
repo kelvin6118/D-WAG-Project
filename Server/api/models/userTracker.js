@@ -8,8 +8,4 @@ module.exports = class Tracker {
         this.date = data.date;
         this.userinfo = { user: data.user_name, displayName: data.user_display}
     };
-    
-    static getUserHabits(id){
-
-    }
 }
