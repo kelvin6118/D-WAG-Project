@@ -113,28 +113,36 @@ async function loadCalendar(userID) {
         let month = dt.toLocaleDateString('en-GB', { month: 'numeric'});
         let daySquareDate = `${date}/${month}/${year}`;
 
+        let marker = document.createElement('span');
+
         userInfo.forEach(obj => {
           let eventDate = obj["tracker"].date;
           let habit = obj["habits"].id;
           if(eventDate == daySquareDate){
-
             switch(habit){
               case 1:
+                marker.classList.add("water");
+                daySquare.appendChild(marker);
                 console.log('found event Drink Water')
                   break;
               case 2:
+                marker.classList.add("sleep");
+                daySquare.appendChild(marker);
                 console.log('found event sleep')
                   break;
 
               case 3:
+                marker.classList.add("read");
+                daySquare.appendChild(marker);
                 console.log('found event read')
                   break;
               case 4:
+                marker.classList.add("steps");
+                daySquare.appendChild(marker);
                 console.log('found event steps')
                   break;
               default:
                 console.log('no event found');
-
             }
           }
         })
