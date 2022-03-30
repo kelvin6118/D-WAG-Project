@@ -162,7 +162,8 @@ async function renderHabit(){
     const habitSection = document.createElement('section')
     const dropdown = document.createElement('select');
     const habitTitle = document.createElement('label');
-    const submit = document.createElement('input')
+    const submit = document.createElement('input');
+    const text = document.createElement('p');
     submit.type = 'submit';
     dropdown.name = "habits";
     dropdown.id = "habits";
@@ -171,15 +172,50 @@ async function renderHabit(){
     main.appendChild(habitSection);
     habitSection.appendChild(habitTitle);
     habitSection.appendChild(dropdown);
-
+    habitSection.appendChild(text)
+    let habitOption;
+    let selectedValue;
+    
     for(let i = 0; i < getHabitList.length; i++){
-
-    const habitOption = document.createElement('option');
-    habitOption.value = `${getHabitList[i].habit_name}`
-    habitOption.innerText = `${getHabitList[i].habit_name}`
-    dropdown.appendChild(habitOption);
+      habitOption = document.createElement('option');
+      habitOption.id = `${getHabitList[i].habit_name}`
+      habitOption.value = `${getHabitList[i].habit_name}`
+      habitOption.innerText = `${getHabitList[i].habit_name}`;
+      dropdown.appendChild(habitOption);
     }
 
+    function getSelectedValue() {
+      selectedValue = document.getElementById("habits").value;
+      console.log(selectedValue)
+      
+      if (selectedValue == `${getHabitList[0].habit_name}`){
+      text.innerText = "";
+       text.innerText = `Choose how many glasses of water you want to drink`
+     } else if (selectedValue == `${getHabitList[1].habit_name}`){
+      text.innerText = "";
+       text.innerText = `Choose how many hours of sleep you want to get nightly`
+     } else if (document.getElementById(`${getHabitList[2].habit_name}`).selected){
+      text.innerText = "";
+       text.innerText = `Choose how many minutes of reading you want to do each day`
+     } else {
+      text.innerText = "";
+       text.innerText = `Choose how many steps you want to do each day`
+     }
+    }
+    
+    dropdown.addEventListener("change", getSelectedValue)
+    
+
+    
+
+
+    const numberInput = document.createElement('input')
+    const frequencyInput = document.createElement('input')
+    const frequencyText = document.createElement('p');
+    frequencyText.innerText = `How often would you like to track this a week?`
+
+    
+    habitSection.appendChild(frequencyText)
     habitSection.appendChild(submit)
 }
 
