@@ -2,6 +2,7 @@
 
   let nav = 0;
   let clicked = null;
+  const username = localStorage.getItem('username');
 
   const container = document.createElement('div');
   container.setAttribute('id', 'container');
@@ -46,8 +47,9 @@
 
   const weekdays = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 
-  function loadCalendar() {
+async function loadCalendar() {
     //create container
+    let userInfo = await getUserInfo(username);
     container.innerHTML = '';
 
     container.appendChild(header);
@@ -106,6 +108,18 @@
 
       if(i > paddingDays){
         daySquare.innerText = i - paddingDays;
+
+        let date  = i - paddingDays;
+        let month = dt.toLocaleDateString('en-GB', { month: 'numeric'});
+        let daySquareDate = `${date}/${month}/${year}`;
+        console.log(daySquareDate);
+        //for each tacker
+        //if daySquareDate = tracker date
+        //if habit id = habit(4 different if statement)
+        //marker = create element circle
+        //marker.classList('water');
+        //daySquare.appendChild(marker)
+        console.log(userInfo);
       }else{
         daySquare.classList.add('padding');
       }
