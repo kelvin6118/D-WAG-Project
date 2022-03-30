@@ -7,7 +7,7 @@ body {
     font-weight: bold;
 }
 
-nav {
+/* nav {
     position: static;
     top: 0;
     width: 100%;
@@ -16,34 +16,34 @@ nav {
     padding: 75px;
     background-color: #3b5998;
     color: white;
-}
+} */
 
 #logo { width: 100%; }
 
 a { text-decoration: none; }
 
-nav a { color: white; }
+/* nav a { color: white; } */
 
-nav button, input[type='submit'] {
+/* nav button, input[type='submit'] {
     border: none;
     color: white;
     background: #3b5998;
     font-weight: inherit;
     font-size: inherit;
     padding: 0;
-}
+} */
 
-#feed {
+/* #feed {
     width: 50%;
     margin: 20px auto;
-}
+} */
 
-.post {
+/* .post {
     border: 1px solid #3b5998;
     text-align: justify;
     padding: 10px 50px;
     margin: 5px;
-}
+} */
 
 form {
     display: flex;
@@ -51,6 +51,7 @@ form {
     padding: 50px;
     margin: 20px auto;
     width: 50%;
+    border-radius: 5px;
 }
 
 input {
