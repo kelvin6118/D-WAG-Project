@@ -157,36 +157,30 @@ function renderFullLogo(){
     main.appendChild(fullLogo);
 }
 
-function renderHabit(){
-    
+async function renderHabit(){
+    const getHabitList = await getHabits();
+    const habitSection = document.createElement('section')
     const dropdown = document.createElement('select');
     const habitTitle = document.createElement('label');
-    const dailySteps = document.createElement('option');
-    const waterDrank = document.createElement('option');
-    const bookRead = document.createElement('option');
+    const submit = document.createElement('input')
+    submit.type = 'submit';
     dropdown.name = "habits";
     dropdown.id = "habits";
     habitTitle.for = "habits";
     habitTitle.innerText = "Track a new habit:";
-    dailySteps.value = "DailySteps";
-    dailySteps.innerText = "Daily Steps";
-    waterDrank.value = "WaterDrank";
-    waterDrank.innerText = "Water Drank";
-    bookRead.value = "BookRead";
-    bookRead.innerText = "Book Read";
-
     main.appendChild(habitSection);
-    habitSection.appendChild(title);
-    habitSection.appendChild(habitList);
-    habitList.appendChild(habit1);
-    habitList.appendChild(habit2);
-    habitList.appendChild(habit3);
     habitSection.appendChild(habitTitle);
     habitSection.appendChild(dropdown);
-    dropdown.appendChild(dailySteps);
-    dropdown.appendChild(waterDrank);
-    dropdown.appendChild(bookRead);
 
+    for(let i = 0; i < getHabitList.length; i++){
+
+    const habitOption = document.createElement('option');
+    habitOption.value = `${getHabitList[i].habit_name}`
+    habitOption.innerText = `${getHabitList[i].habit_name}`
+    dropdown.appendChild(habitOption);
+    }
+
+    habitSection.appendChild(submit)
 }
 
   function render404() {
@@ -223,6 +217,7 @@ async function trackedHabits(username) {
     habitForm.appendChild(title);
     habitForm.appendChild(habit);
     habitForm.appendChild(habitLabel);
+    habitForm.appendChild(submit);
     }
 
 
