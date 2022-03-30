@@ -1,6 +1,6 @@
 INSERT INTO users (username, password, display_name, habit_ID, tracker_ID, activity_ID)
 VALUES
-('Graingertom', 'qwerty', 'Tom', 1, 1, 1);
+('Graingertom', 'qwerty', 'Tom', (1,2), 1, 1);
 
 INSERT INTO userTrackers (habit_ID, date)
 VALUES

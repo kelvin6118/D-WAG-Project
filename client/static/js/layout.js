@@ -24,7 +24,7 @@ function updateMain(path) {
                 renderlogo(),
                 renderProfile(username),
                 renderLogout(),
-                renderHabit(),
+                trackedHabits(username),
                 loadCalendar();
                 break;
             default:

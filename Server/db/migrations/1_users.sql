@@ -6,6 +6,6 @@ CREATE TABLE users (
     password VARCHAR(200) NOT NULL,
     display_name VARCHAR(20) NOT NULL,
     tracker_ID int,
-    habit_ID int,
+    habit_ID record,
     activity_ID int
 );

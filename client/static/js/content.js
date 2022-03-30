@@ -203,3 +203,33 @@ function renderHabit(){
     error.textContent = "Oops, we can't find that page sorry!";
     main.appendChild(error);
 }
+
+
+
+async function trackedHabits(username) {
+
+    const userInfo = await getUserInfo(username)
+    console.log(userInfo)
+    const trackingSection = document.createElement('section');
+    const habitForm = document.createElement('form');
+    const title = document.createElement('h3');
+    title.textContent = `Habits you're tracking`
+    
+    for( habit in userInfo.habits){
+      const habit = document.createElement('input');
+      habit.type = 'radio';
+      habit.id = `habit`+ `${userInfo.habits.id}`;
+      habit.name = 'habit' + `${userInfo.habits.id}`;
+    habit.value = `${userInfo.habits.habitName}`;
+    const habitLabel = document.createElement('label');
+    habitLabel.for = 'habit' + `${userInfo.habits.id}`;
+    habitLabel.innerText = `${userInfo.habits.habitName}`;
+    }
+
+    main.appendChild(trackingSection)
+    trackingSection.appendChild(habitForm);
+    habitForm.appendChild(title);
+    habitForm.appendChild(habit);
+    habitForm.appendChild(habitLabel);
+
+}
