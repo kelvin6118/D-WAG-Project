@@ -25,7 +25,7 @@ function updateMain(path) {
                 renderProfile(id),
                 renderLogout(),
                 renderHabit(),
-                loadCalendar();
+                loadCalendar(id);
                 break;
             default:
                 render404(); break;

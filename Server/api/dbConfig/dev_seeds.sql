@@ -4,8 +4,8 @@ VALUES
 
 INSERT INTO userTrackers (habit_ID, date)
 VALUES
-(1, '29/03/2022'),
-(2, '30/03/2022');
+(1, '29/3/2022'),
+(2, '30/3/2022');
 
 INSERT INTO activityTrackers (habit_ID, frequency, number)
 VALUES
