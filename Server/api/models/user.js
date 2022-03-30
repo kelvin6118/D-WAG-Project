@@ -7,6 +7,9 @@ module.exports = class User {
         this.username = data.username;
         this.password = data.password;
         this.displayName = data.display_name;
+        this.habits = { id: data.habit_id, habitName: data.habit_name};
+        this.activity = { id: data.activity_id, habitID: data.activity_habit_id, frequency: data.frequency, number: data.number};
+        this.tracker = { id: data.tracker_id, habitID: data.tracker_habit_id, date: data.date};
     };
 
     static get all(){
@@ -46,17 +49,17 @@ module.exports = class User {
         });
     };
 
-    // static getUserInfo(username){
-    //     return new Promise (async(resolve, reject) => {
-    //         try {
-    //             let userData = await db.query(`SELECT users.*, users.username as user_name, users.display_name as user_display FROM userTrackers JOIN activityTrackers ON userTrackers.activity_ID = activityTrackers.id JOIN users ON activityTrackers.user_ID = users.id WHERE userTrackers.id = $1;`, [id]);
-    //             let user = new Tracker(userData.rows[0]);
-    //             resolve(user);
-    //         } catch (err) {
-    //             reject('User not found')
-    //         }
-    //     });
-    // }
+    static getUserInfo(username){
+        return new Promise (async(resolve, reject) => {
+            try {
+                let userData = await db.query(`SELECT users.*, habits.id as habit_id, habits.habit_name as habit_name, activityTrackers.id as activity_id, activityTrackers.habit_ID as activity_habit_id, activityTrackers.frequency as frequency, activityTrackers.number as number, userTrackers.id as tracker_id, userTrackers.habit_ID as tracker_habit_id, userTrackers.date as date FROM users JOIN habits ON users.habit_ID = habits.id JOIN activityTrackers ON users.activity_ID = activityTrackers.id JOIN userTrackers ON users.tracker_ID = userTrackers.id WHERE users.username = $1;`, [username]);
+                let user = new User(userData.rows[0]);
+                resolve(user);
+            } catch (err) {
+                reject('User not found')
+            }
+        });
+    }
 
 
 }

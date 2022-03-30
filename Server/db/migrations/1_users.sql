@@ -5,5 +5,7 @@ CREATE TABLE users (
     username VARCHAR(50) NOT NULL UNIQUE,
     password VARCHAR(200) NOT NULL,
     display_name VARCHAR(20) NOT NULL,
-    tracker_ID int
+    tracker_ID int,
+    habit_ID int,
+    activity_ID int
 );
