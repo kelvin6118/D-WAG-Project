@@ -130,13 +130,13 @@
 initButtons();
 
 
-async function renderProfile(username){
+async function renderProfile(id){
     const profile = document.createElement('section');
     profile.id="profile"
     const greeting = document.createElement('h3');
-    const userInfo = await getUserInfo(username);
+    const userInfo = await getUserInfo(id);
     console.log(userInfo)
-    greeting.textContent = `Good to see you ${userInfo.displayName}!`;
+    greeting.textContent = `Good to see you ${userInfo[0].userInfo.displayName}!`;
     profile.appendChild(greeting);
     main.appendChild(profile);
 }
