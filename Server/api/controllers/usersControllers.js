@@ -10,6 +10,15 @@ async function display(req, res) {
     }
 }
 
+async function getUser (req, res) {
+    try {
+        const users = await User.findByID(req.params.id);
+        res.status(200).json(users);
+    } catch (err) {
+        res.status(500).send(err);
+    }
+}
+
 
 async function registerRequest(req, res){
     try {
@@ -42,4 +51,4 @@ async function loginRequest(req, res) {
 
 
 
-module.exports = { display, loginRequest, registerRequest}
+module.exports = { display, loginRequest, registerRequest, getUser}

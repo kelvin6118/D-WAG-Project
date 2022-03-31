@@ -15,7 +15,7 @@ async function register(e) {
       throw Error(data.err)
     } else {
       console.log(`${data.id} has been created`)
-      requestLogin(e);
+      location.hash = '#login'
     }
 
   } catch (error) {

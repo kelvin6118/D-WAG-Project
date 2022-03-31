@@ -5,6 +5,7 @@ const userController = require('../controllers/usersControllers')
 const habitsTrackedController = require('../controllers/habitsTrackedControllers')
 
 router.get('/', userController.display);
+router.get('/username/:id', userController.getUser)
 router.get('/:id', habitsTrackedController.getUser);
 router.post('/login', userController.loginRequest);
 

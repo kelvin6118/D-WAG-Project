@@ -117,13 +117,12 @@ async function loadCalendar(id) {
         let month = dt.toLocaleDateString('en-GB', { month: 'numeric'});
         let daySquareDate = `${date}/${month}/${year}`;
 
-        let marker = document.createElement('span');
-
+        
         userInfo.forEach(obj => {
           let eventDate = obj["tracker"].date;
           let habit = obj["habits"].id;
-          // console.log(eventDate)
           if(eventDate == daySquareDate){
+            let marker = document.createElement('span');
             switch(habit){
               case 1:
                 marker.classList.add("water");
@@ -239,9 +238,9 @@ async function renderProfile(id){
     const profile = document.createElement('section');
     profile.id="profile"
     const greeting = document.createElement('h3');
-    const userInfo = await getUserInfo(id);
-    console.log(userInfo)
-    greeting.textContent = `Good to see you ${userInfo[0].userInfo.displayName}!`;
+    const displayName = await getDisplayName(id);
+    console.log(displayName)
+    greeting.textContent = `Good to see you ${displayName.displayName}!`;
     profile.appendChild(greeting);
     main.appendChild(profile);
 }

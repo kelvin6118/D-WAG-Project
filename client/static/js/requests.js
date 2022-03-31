@@ -10,6 +10,16 @@ async function getUserInfo(id) {
     }
 }
 
+async function getDisplayName(id) {
+    try {
+        const response = await fetch(`http://localhost:3000/users/username/${id}`);
+        const info = await response.json()
+        return info
+    } catch (err) {
+        console.warn(err);
+    }
+}
+
 async function getHabits(){
     try{
         const response = await fetch(`http://localhost:3000/habits`)

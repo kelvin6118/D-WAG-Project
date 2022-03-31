@@ -21,7 +21,6 @@ function updateMain(path) {
             case '#register':
                 renderFullLogo(),
                 renderRegisterForm(); break;
-
             case '#dashboard':
                 renderlogo(),
                 renderProfile(id),
@@ -35,7 +34,7 @@ function updateMain(path) {
         }
     } else {
         renderFullLogo(),
-        renderRegisterForm();
+        renderLoginForm();
         //renderHomepage();
     }
 }

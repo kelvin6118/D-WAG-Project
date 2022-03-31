@@ -33,8 +33,13 @@ form.id = 'loginForm'
             form.appendChild(field);
         })
     })
+    let registerButton = document.createElement('button')
+    registerButton.id = "registerButton"
+    registerButton.innerText = "Register for an Account"
     form.addEventListener('submit', requestLogin)
     main.appendChild(form);
+    main.appendChild(registerButton);
+    registerButton.addEventListener('click', goToRegister)
 }
 
 function renderLogout(){

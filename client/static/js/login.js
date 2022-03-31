@@ -36,6 +36,11 @@ function logout() {
     location.hash = `#login`;
 }
 
+function goToRegister() {
+    localStorage.clear();
+    location.hash = `#register`;
+}
+
 
 
  
