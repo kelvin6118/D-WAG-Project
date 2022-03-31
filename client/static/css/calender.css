@@ -2,7 +2,7 @@ body {
   display: flex;
   margin-top: 50px;
   justify-content: center;
-  background-color: #FFFCFF;
+  background-color: white;
 }
 button {
   width: 75px;
@@ -18,22 +18,22 @@ button {
 
 #header {
   padding: 10px;
-  color: #d36c6c;
+  color: black;
   font-size: 26px;
   font-family: sans-serif;
   display: flex;
   justify-content: space-between;
 }
 #header button {
-  background-color:#92a1d1;
+  background-color:rgb(204, 42, 42);
 }
 #container {
-  width: 770px;
+  width: 50%;
 }
 #weekdays {
   width: 100%;
   display: flex;
-  color: #247BA0;
+  color: black;
 }
 #weekdays div {
   width: 100px;
@@ -41,18 +41,18 @@ button {
 }
 #calendar {
   width: 100%;
-  margin: auto;
+  margin: 0;
   display: flex;
   flex-wrap: wrap;
 }
 .day {
-  width: 100px;
-  padding: 10px;
+  width: 12%;
+  padding: 3%;
   height: 100px;
   cursor: pointer;
   box-sizing: border-box;
   background-color: white;
-  margin: 5px;
+  margin: 1%;
   box-shadow: 0px 0px 3px #CBD4C2;
   display: flex;
   flex-direction: column;

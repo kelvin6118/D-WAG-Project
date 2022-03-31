@@ -2,8 +2,17 @@
   let clicked = null;
   id = localStorage.getItem('userID')
 
+  main = document.querySelector('main');
+  let body = document.querySelector('body');
+
   const trackingSection = document.createElement('section');
   trackingSection.id = "trackingContainer"
+
+  const dashboard = document.createElement('div');
+  dashboard.id = "dashboard"
+  dashboard.classList.add("container")
+
+  const habitSection = document.createElement('section')
 
   const container = document.createElement('div');
   container.setAttribute('id', 'container');
@@ -161,7 +170,7 @@ async function loadCalendar(id) {
       }
       calendar.appendChild(daySquare)
     }
-    main.appendChild(container);
+    dashboard.appendChild(container);
   }
 
   function DateCalculator(start, end){
@@ -242,11 +251,12 @@ async function renderProfile(id){
     console.log(displayName)
     greeting.textContent = `Good to see you ${displayName.displayName}!`;
     profile.appendChild(greeting);
-    main.appendChild(profile);
+    body.appendChild(profile);
 }
 
 function renderlogo(){
     const logo = document.createElement('img');
+    logo.id = "logo"
     logo.src = `./static/resources/Habitrack logo.png`;
     logo.width = "300";
     logo.height = "300";
@@ -255,6 +265,7 @@ function renderlogo(){
 
 function renderFullLogo(){
     const fullLogo = document.createElement('img');
+    fullLogo.id = "fullLogo"
     fullLogo.src = `./static/resources/Habitrack full.png`;
     fullLogo.width = "300";
     fullLogo.height = "300";
@@ -263,7 +274,7 @@ function renderFullLogo(){
 
 async function renderHabit(){
     const getHabitList = await getHabits();
-    const habitSection = document.createElement('section')
+    habitSection.id = "habitSection"
     const selectForm = document.createElement('form');
     const dropdown = document.createElement('select');
     const habitTitle = document.createElement('label');
@@ -280,7 +291,6 @@ async function renderHabit(){
     dropdown.id = "habits";
     habitTitle.for = "habits";
     habitTitle.innerText = "Track a new habit:";
-    main.appendChild(habitSection);
     habitSection.appendChild(habitTitle);
     habitSection.appendChild(selectForm)
     selectForm.appendChild(dropdown);
@@ -304,15 +314,19 @@ async function renderHabit(){
 
       if (selectedValue == `${getHabitList[0].id}`){
       text.innerText = "";
+      text.style.color = "red"
        text.innerText = `Choose how many glasses of water you want to drink`
      } else if (selectedValue == `${getHabitList[1].id}`){
       text.innerText = "";
+      text.style.color = "purple"
        text.innerText = `Choose how many hours of sleep you want to get nightly`
      } else if (selectedValue == `${getHabitList[2].id}`){
       text.innerText = "";
+      text.style.color = "green"
        text.innerText = `Choose how many minutes of reading you want to do each day`
      } else {
       text.innerText = "";
+      text.style.color = "yellow"
        text.innerText = `Choose how many steps you want to do each day`
      }
     }
@@ -337,6 +351,7 @@ async function trackedHabits(id) {
   trackingSection.innerHTML = ""
   const activityInfo = await getActivity(id)
     const habitForm = document.createElement('form');
+    habitForm.id = "habitForm"
     const title = document.createElement('h3');
     title.textContent = `Habits you're tracking`;
     const submit = document.createElement('input')
@@ -359,9 +374,10 @@ async function trackedHabits(id) {
     habitForm.appendChild(submit);
     }
 
-    main.appendChild(trackingSection)
+    dashboard.appendChild(trackingSection)
     trackingSection.appendChild(title);
     trackingSection.appendChild(habitForm);
+    trackingSection.appendChild(habitSection);
     habitForm.addEventListener('submit', trackHabits)
 
 

@@ -1,5 +1,5 @@
 // const nav = document.querySelector('nav');
-const main = document.querySelector('main');
+let main = document.querySelector('main');
 
 
 const publicRoutes = ['#', '#login', '#register'];
@@ -13,6 +13,7 @@ function updateMain(path) {
     id = localStorage.getItem('userID')
     console.log(id)
     main.innerHTML = '';
+    main.appendChild(dashboard)
     if (path) {
         switch(path){
             case '#login':
