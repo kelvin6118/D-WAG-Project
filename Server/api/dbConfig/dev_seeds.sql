@@ -2,10 +2,10 @@ INSERT INTO users (username, password, display_name)
 VALUES
 ('Graingertom', 'qwerty', 'Tom');
 
-INSERT INTO userTrackers (habit_ID, date)
+INSERT INTO userTrackers (user_ID, habit_ID, date)
 VALUES
-(1, '29/03/2022'),
-(2, '30/03/2022');
+(1, 1, '29/03/2022'),
+(1, 2, '30/03/2022');
 
 INSERT INTO activityTrackers (user_ID, habit_ID, frequency, number)
 VALUES

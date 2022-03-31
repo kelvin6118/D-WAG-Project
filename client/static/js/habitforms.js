@@ -21,7 +21,6 @@ async function newHabits(e) {
         const data = await r.json()
         console.log(data)
         if (data.err){ throw Error(data.err); }
-        login(data);
     } catch (err) {
         console.warn(err);
     }
@@ -59,7 +58,6 @@ async function trackHabits(e) {
         const data = await r.json()
         console.log(data)
         if (data.err){ throw Error(data.err); }
-        login(data);
     } catch (err) {
         console.warn(err);
     }

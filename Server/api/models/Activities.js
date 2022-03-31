@@ -26,6 +26,7 @@ module.exports = class Activity {
         return new Promise (async (resolve, reject) => {
             try {
                 const { userID, habitID, frequency, number} = activityData;
+                console.log(activityData)
                 let newActivity = await db.query('INSERT INTO activityTrackers (user_ID, habit_ID, frequency, number) VALUES ($1,$2,$3,$4) RETURNING *;',[userID, habitID, frequency, number]);
                 let result = new Activity(newActivity.rows[0]);
                 resolve (result);
