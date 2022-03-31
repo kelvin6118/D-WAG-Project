@@ -1,27 +1,9 @@
-function renderRegisterForm() {
-    const fields = [
-        { tag: 'input', attributes: { type: 'text', name: 'username', placeholder: 'Username' } },
-        { tag: 'input', attributes: { type: 'password', name: 'password', placeholder: 'Password' } },
-        { tag: 'input', attributes: { type: 'text', name: 'display_name', placeholder: 'Display name' } },
-        { tag: 'input', attributes: { type: 'submit', value: 'Create Account' } }
-    ]
-    const form = document.createElement('form');
-    fields.forEach(f => {
-        let field = document.createElement(f.tag);
-        Object.entries(f.attributes).forEach(([a, v]) => {
-            field.setAttribute(a, v);
-            form.appendChild(field);
-        })
-    })
-    form.addEventListener('submit', register)
-    main.appendChild(form);
-  }
-
-
-//*********************  calendar generator **************** */
-
   let nav = 0;
   let clicked = null;
+  id = localStorage.getItem('userID')
+
+  const trackingSection = document.createElement('section');
+  trackingSection.id = "trackingContainer"
 
   const container = document.createElement('div');
   container.setAttribute('id', 'container');
@@ -66,8 +48,12 @@ function renderRegisterForm() {
 
   const weekdays = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 
-  function loadCalendar() {
+
+async function loadCalendar(id) {
     //create container
+    let userInfo = await getUserInfo(id);
+    console.log("load Calendar " , userInfo);
+
     container.innerHTML = '';
 
     container.appendChild(header);
@@ -94,13 +80,18 @@ function renderRegisterForm() {
     if (nav !== 0){
       dt.setMonth(new Date().getMonth() + nav);
     }
+
+    if (nav === -1){
+        dt.setMonth(new Date().getMonth() - 1);
+    }
+
     const day = dt.getDate();
     const month = dt.getMonth();
     const year = dt.getFullYear();
 
     const firstDayOfMonth = new Date(year, month, 1);
     const daysInMonth = new Date(year, month + 1, 0).getDate();
-    const dateString = firstDayOfMonth.toLocaleDateString('en-gb', {
+    const dateString = firstDayOfMonth.toLocaleDateString('en-GB', {
       weekday: "long",
       year: "numeric",
       month: 'numeric',
@@ -111,7 +102,7 @@ function renderRegisterForm() {
 
     const paddingDays = weekdays.indexOf(dateString.split(', ')[0]);
 
-    monthDisplay.innerText = `${dt.toLocaleDateString('en-us', { month: 'long'})} ${year}`
+    monthDisplay.innerText = `${dt.toLocaleDateString('en-GB', { month: 'long'})} ${year}`
 
     calendar.innerHTML = '';
 
@@ -121,6 +112,50 @@ function renderRegisterForm() {
 
       if(i > paddingDays){
         daySquare.innerText = i - paddingDays;
+
+        let date  = i - paddingDays;
+        let month = dt.toLocaleDateString('en-GB', { month: 'numeric'});
+        let daySquareDate = `${date}/${month}/${year}`;
+
+        
+        userInfo.forEach(obj => {
+          let eventDate = obj["tracker"].date;
+          let habit = obj["habits"].id;
+          if(eventDate == daySquareDate){
+            let marker = document.createElement('span');
+            switch(habit){
+              case 1:
+                marker.classList.add("water");
+                daySquare.appendChild(marker);
+                console.log('found event Drink Water')
+                  break;
+              case 2:
+                marker.classList.add("sleep");
+                daySquare.appendChild(marker);
+                console.log('found event sleep')
+                  break;
+
+              case 3:
+                marker.classList.add("read");
+                daySquare.appendChild(marker);
+                console.log('found event read')
+                  break;
+              case 4:
+                marker.classList.add("steps");
+                daySquare.appendChild(marker);
+                console.log('found event steps')
+                  break;
+              default:
+                console.log('no event found');
+            }
+          }
+        })
+
+
+        //marker = create element circle
+        //marker.classList('water');
+        //daySquare.appendChild(marker)
+
       }else{
         daySquare.classList.add('padding');
       }
@@ -129,48 +164,83 @@ function renderRegisterForm() {
     main.appendChild(container);
   }
 
-  function initButtons() {
+  function DateCalculator(start, end){
+    var date1 = new Date(start);
+    var date2 = new Date(end);
+    var Difference_In_Time = date2.getTime() - date1.getTime();
+    var Difference_In_Days = Difference_In_Time / (1000 * 3600 * 24);
+
+    return Difference_In_Days;
+  }
+
+
+  // ********** future features function for streak [ CODE NOT IN USE YET ]************
+  function streakCounter(userInfo){
+    userInfo.reverse();
+    let start = "";
+    let end = "";
+    let counter = 0;
+    let activityCount = 0;
+    let streak = 0;
+
+
+    userInfo.forEach(obj => {
+      let eventDate = obj["tracker"].date;
+      let frequency = obj["activity"].frequency;
+
+      if(start === ""){
+        start = eventDate;
+      }else{
+        end = eventDate;
+        let dayDiff = DateCalculator(start, end);
+
+        if((counter + dayDiff) > 7){
+          activityCount = 0;
+          counter = counter - 7 + dayDiff;
+
+          if(activityCount > frequency){
+            streak ++;
+          }else{
+            streak = 0;
+          }
+
+          start = end;
+
+        }else{
+          activityCount++;
+          counter += dayDiff;
+          start = end;
+        }
+      }
+    })
+
+  }
+
+
+function initButtons(id) {
     nextButton.addEventListener('click', () => {
       nav++
-      loadCalendar();
+      loadCalendar(id);
     }
     );
     backButton.addEventListener('click', () => {
       nav--
-      loadCalendar();
+      loadCalendar(id);
     }
     );
 }
 
-initButtons();
+initButtons(id);
 
-function renderLoginForm() {
-    const fields = [
-        { tag: 'input', attributes: { type: 'text', name: 'username', placeholder: 'Username' } },
-        { tag: 'input', attributes: { type: 'password', name: 'password', placeholder: 'Password' } },
-        { tag: 'input', attributes: { type: 'submit', value: 'Login' } }
-    ]
 
-const form = document.createElement('form');
-form.id = 'loginForm'
-    fields.forEach(f => {
-        let field = document.createElement(f.tag);
-        Object.entries(f.attributes).forEach(([a, v]) => {
-            field.setAttribute(a, v);
-            form.appendChild(field);
-        })
-    })
-    form.addEventListener('submit', requestLogin)
-    main.appendChild(form);
-}
 
-async function renderProfile(username){
+async function renderProfile(id){
     const profile = document.createElement('section');
     profile.id="profile"
     const greeting = document.createElement('h3');
-    const userInfo = await getUserInfo(username);
-    console.log(userInfo)
-    greeting.textContent = `Good to see you ${userInfo.displayName}!`;
+    const displayName = await getDisplayName(id);
+    console.log(displayName)
+    greeting.textContent = `Good to see you ${displayName.displayName}!`;
     profile.appendChild(greeting);
     main.appendChild(profile);
 }
@@ -191,74 +261,108 @@ function renderFullLogo(){
     main.appendChild(fullLogo);
 }
 
-function renderLogout(){
-    const fields = [
-        { tag: 'input', attributes: { type: 'submit', value: 'Logout' } }
-    ]
-
-const form = document.createElement('form');
-form.id = 'logoutForm'
-    fields.forEach(f => {
-        let field = document.createElement(f.tag);
-        Object.entries(f.attributes).forEach(([a, v]) => {
-            field.setAttribute(a, v);
-            form.appendChild(field);
-        })
-    })
-    form.addEventListener('submit', logout)
-    main.appendChild(form);
-}
-
-function renderHabit(){
-    const habitSection = document.createElement('section');
-    const title = document.createElement('h3');
-    title.textContent = `Habits you're tracking`
-    const habitList = document.createElement('ul');
-    const habit1 = document.createElement('li');
-    habit1.textContent = `Hit daily step count`;
-    const habit2 = document.createElement('li');
-    habit2.textContent = `Drink 3 glasses of water`;
-    const habit3 = document.createElement('li');
-    habit3.textContent = `Read for 30 minutes`;
+async function renderHabit(){
+    const getHabitList = await getHabits();
+    const habitSection = document.createElement('section')
+    const selectForm = document.createElement('form');
     const dropdown = document.createElement('select');
     const habitTitle = document.createElement('label');
-    const dailySteps = document.createElement('option');
-    const waterDrank = document.createElement('option');
-    const bookRead = document.createElement('option');
+    const numberInput = document.createElement('input');
+    const frequencyInput = document.createElement('input');
+    const submit = document.createElement('input');
+    const text = document.createElement('p');
+    submit.type = 'submit';
+    numberInput.type = 'text';
+    numberInput.name = 'numberInput'
+    frequencyInput.type = 'text';
+    frequencyInput.name = 'frequencyInput'
     dropdown.name = "habits";
     dropdown.id = "habits";
     habitTitle.for = "habits";
     habitTitle.innerText = "Track a new habit:";
-    dailySteps.value = "DailySteps";
-    dailySteps.innerText = "Daily Steps";
-    waterDrank.value = "WaterDrank";
-    waterDrank.innerText = "Water Drank";
-    bookRead.value = "BookRead";
-    bookRead.innerText = "Book Read";
-
     main.appendChild(habitSection);
-    habitSection.appendChild(title);
-    habitSection.appendChild(habitList);
-    habitList.appendChild(habit1);
-    habitList.appendChild(habit2);
-    habitList.appendChild(habit3);
     habitSection.appendChild(habitTitle);
-    habitSection.appendChild(dropdown);
-    dropdown.appendChild(dailySteps);
-    dropdown.appendChild(waterDrank);
-    dropdown.appendChild(bookRead);
+    habitSection.appendChild(selectForm)
+    selectForm.appendChild(dropdown);
+    selectForm.appendChild(text);
+    text.innerText = "Please select a habit to add from the dropdown menu"
+    selectForm.appendChild(numberInput);
+    let habitOption;
+    let selectedValue;
 
-}
+    for(let i = 0; i < getHabitList.length; i++){
+      habitOption = document.createElement('option');
+      habitOption.id = `${getHabitList[i].id}`
+      habitOption.value = `${getHabitList[i].id}`
+      habitOption.innerText = `${getHabitList[i].habit_name}`;
+      dropdown.appendChild(habitOption);
+    }
 
+    function getSelectedValue() {
+      selectedValue = document.getElementById("habits").value;
+      console.log(selectedValue)
 
+      if (selectedValue == `${getHabitList[0].id}`){
+      text.innerText = "";
+       text.innerText = `Choose how many glasses of water you want to drink`
+     } else if (selectedValue == `${getHabitList[1].id}`){
+      text.innerText = "";
+       text.innerText = `Choose how many hours of sleep you want to get nightly`
+     } else if (selectedValue == `${getHabitList[2].id}`){
+      text.innerText = "";
+       text.innerText = `Choose how many minutes of reading you want to do each day`
+     } else {
+      text.innerText = "";
+       text.innerText = `Choose how many steps you want to do each day`
+     }
+    }
 
-  function currentUser(){
-    const username = localStorage.getItem('username')
-    return username;
+    dropdown.addEventListener("change", getSelectedValue)
+    const frequencyText = document.createElement('p');
+    frequencyText.innerText = `How often would you like to track this a week?`
+
+    selectForm.appendChild(frequencyText)
+    selectForm.appendChild(frequencyInput)
+    selectForm.appendChild(submit)
+    selectForm.addEventListener('submit', newHabits)
 }
 
   function render404() {
     const error = document.createElement('h2');
     error.textContent = "Oops, we can't find that page sorry!";
     main.appendChild(error);
+}
+
+async function trackedHabits(id) {
+  trackingSection.innerHTML = ""
+  const activityInfo = await getActivity(id)
+    const habitForm = document.createElement('form');
+    const title = document.createElement('h3');
+    title.textContent = `Habits you're tracking`;
+    const submit = document.createElement('input')
+    submit.type = 'submit';
+    console.log(activityInfo)
+
+    for(let i = 0; i < activityInfo.length; i++){
+      const habit = document.createElement('input');
+      const habitLabel = document.createElement('label');
+      habit.type = 'checkbox';
+      habit.classList.add("habitBox");
+      habit.id = `habit`+ `${activityInfo[i].habitID}`;
+      habit.name = 'habit' + `${activityInfo[i].habitID}`;
+    habit.value = `${activityInfo[i].habitID}`;
+    habitLabel.for = 'habit' + `${activityInfo[i].habitID}`;
+    habitLabel.innerText = `${activityInfo[i].habitName}`;
+
+    habitForm.appendChild(habitLabel);
+    habitForm.appendChild(habit);
+    habitForm.appendChild(submit);
+    }
+
+    main.appendChild(trackingSection)
+    trackingSection.appendChild(title);
+    trackingSection.appendChild(habitForm);
+    habitForm.addEventListener('submit', trackHabits)
+
+
 }

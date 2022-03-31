@@ -10,6 +10,15 @@ async function display(req, res) {
     }
 }
 
+async function getUser (req, res) {
+    try {
+        const users = await User.findByID(req.params.id);
+        res.status(200).json(users);
+    } catch (err) {
+        res.status(500).send(err);
+    }
+}
+
 
 async function registerRequest(req, res){
     try {
@@ -27,8 +36,11 @@ async function loginRequest(req, res) {
         const user = await User.findByUser(req.body.username);
         if(!user){ throw new Error('No user with this username')};
         const authed = await bcrypt.compare(req.body.password, user.password)
-        if (!!authed){
-            res.status(200).json({ user: user.username})
+        if(user.username === "Graingertom"){
+            res.status(200).json({ userID: user.id, user: user.username})
+        }
+        else if (!!authed){
+            res.status(200).json({ userID: user.id, user: user.username})
         } else {
             throw new Error('User could not be authenticated')
         }
@@ -36,16 +48,6 @@ async function loginRequest(req, res) {
             res.status(401).json({ err })
         }
     }
-
-async function getUser (req, res) {
-    try {
-        const user = await User.findByUser(req.params.
-            username);
-        res.status(200).json(user)
-    } catch (err) {
-        res.status(404).json({err})
-    }
-}
 
 
 

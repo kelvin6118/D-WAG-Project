@@ -8,8 +8,10 @@ const privateRoutes = ['#feed', '#profile'];
 window.addEventListener('hashchange', updateContent);
 
 
+
 function updateMain(path) {
-    const username = localStorage.getItem('username')
+    id = localStorage.getItem('userID')
+    console.log(id)
     main.innerHTML = '';
     if (path) {
         switch(path){
@@ -19,20 +21,20 @@ function updateMain(path) {
             case '#register':
                 renderFullLogo(),
                 renderRegisterForm(); break;
-
             case '#dashboard':
                 renderlogo(),
-                renderProfile(username),
+                renderProfile(id),
                 renderLogout(),
                 renderHabit(),
-                loadCalendar();
+                trackedHabits(id),
+                loadCalendar(id);
                 break;
             default:
                 render404(); break;
         }
     } else {
         renderFullLogo(),
-        renderRegisterForm();
+        renderLoginForm();
         //renderHomepage();
     }
 }
