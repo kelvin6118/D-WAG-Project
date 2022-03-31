@@ -9,7 +9,7 @@ window.addEventListener('hashchange', updateContent);
 
 
 function updateMain(path) {
-    const id = localStorage.getItem('userID')
+    id = localStorage.getItem('userID')
     main.innerHTML = '';
     if (path) {
         switch(path){

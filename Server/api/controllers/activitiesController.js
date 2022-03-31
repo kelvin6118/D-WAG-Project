@@ -18,4 +18,13 @@ async function activityRequest(req, res){
     }
 }
 
-module.exports = { display, activityRequest }
+async function getById(req, res){
+    try {
+        const user = await Activity.findByUser(req.params.id);
+        res.status(200).json(user)
+    } catch (err) {
+        res.status(404).json({err})
+    }
+}
+
+module.exports = { display, activityRequest, getById }

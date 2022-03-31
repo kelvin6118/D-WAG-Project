@@ -9,8 +9,8 @@ VALUES
 
 INSERT INTO activityTrackers (user_ID, habit_ID, frequency, number)
 VALUES
-(1, 1, 2, 3),
-(1, 2, 2, 8);
+(1, 2, 2, 3),
+(1, 1, 2, 8);
 
 INSERT INTO habitsTracked (user_ID, habit_ID, tracker_ID, activity_ID)
 VALUES

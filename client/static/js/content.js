@@ -3,6 +3,9 @@
   let nav = 0;
   let clicked = null;
 
+  const trackingSection = document.createElement('section');
+  trackingSection.id = "trackingContainer"
+
   const container = document.createElement('div');
   container.setAttribute('id', 'container');
 
@@ -229,38 +232,35 @@ async function renderHabit(){
     main.appendChild(error);
 }
 
-
-
-async function trackedHabits(username) {
-
-    const userInfo = await getUserInfo(username)
-    console.log(userInfo)
-    const trackingSection = document.createElement('section');
+async function trackedHabits(id) {
+  trackingSection.innerHTML = ""
+  const activityInfo = await getActivity(id)
     const habitForm = document.createElement('form');
     const title = document.createElement('h3');
     title.textContent = `Habits you're tracking`;
     const submit = document.createElement('input')
     submit.type = 'submit';
+    console.log(activityInfo)
     
-    for(let i = 0; i < userInfo.length; i++){
+    for(let i = 0; i < activityInfo.length; i++){
       const habit = document.createElement('input');
       const habitLabel = document.createElement('label');
       habit.type = 'checkbox';
       habit.classList.add("habitBox");
-      habit.id = `habit`+ `${userInfo[i].habits.id}`;
-      habit.name = 'habit' + `${userInfo[i].habits.id}`;
-    habit.value = `${userInfo[i].habits.id}`;
-    habitLabel.for = 'habit' + `${userInfo[i].habits.id}`;
-    habitLabel.innerText = `${userInfo[i].habits.habitName}`;
+      habit.id = `habit`+ `${activityInfo[i].habitID}`;
+      habit.name = 'habit' + `${activityInfo[i].habitID}`;
+    habit.value = `${activityInfo[i].habitID}`;
+    habitLabel.for = 'habit' + `${activityInfo[i].habitID}`;
+    habitLabel.innerText = `${activityInfo[i].habitName}`;
 
-    main.appendChild(trackingSection)
-    trackingSection.appendChild(title);
-    trackingSection.appendChild(habitForm);
     habitForm.appendChild(habitLabel);
     habitForm.appendChild(habit);
     habitForm.appendChild(submit);
     }
 
+    main.appendChild(trackingSection)
+    trackingSection.appendChild(title);
+    trackingSection.appendChild(habitForm);
     habitForm.addEventListener('submit', trackHabits)
 
 

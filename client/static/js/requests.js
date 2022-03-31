@@ -1,3 +1,5 @@
+let id = localStorage.getItem('userID')
+
 async function getUserInfo(id) {
     try {
         const response = await fetch(`http://localhost:3000/users/${id}`);
@@ -17,5 +19,15 @@ async function getHabits(){
         console.warn(err);
     }
 
+}
+
+async function getActivity(id){
+    try{
+        const response = await fetch(`http://localhost:3000/activities/${id}`)
+        const data = await response.json()
+        return data
+    } catch (err) {
+        console.warn(err);
+    }
 }
 

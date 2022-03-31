@@ -20,6 +20,7 @@ async function newHabits(e) {
         const r = await fetch(`${url}/activities`, options)
         const data = await r.json()
         console.log(data)
+        trackedHabits(id)
         if (data.err){ throw Error(data.err); }
     } catch (err) {
         console.warn(err);
