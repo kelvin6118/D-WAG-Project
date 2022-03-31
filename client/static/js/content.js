@@ -251,7 +251,7 @@ async function renderProfile(id){
     console.log(displayName)
     greeting.textContent = `Good to see you ${displayName.displayName}!`;
     profile.appendChild(greeting);
-    body.appendChild(profile);
+    main.appendChild(profile);
 }
 
 function renderlogo(){

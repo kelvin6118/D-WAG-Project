@@ -13,16 +13,16 @@ function updateMain(path) {
     id = localStorage.getItem('userID')
     console.log(id)
     main.innerHTML = '';
-    main.appendChild(dashboard)
     if (path) {
         switch(path){
             case '#login':
                 renderFullLogo(),
                 renderLoginForm(); break;
-            case '#register':
+                case '#register':
                 renderFullLogo(),
                 renderRegisterForm(); break;
-            case '#dashboard':
+                case '#dashboard':
+                main.appendChild(dashboard)
                 renderlogo(),
                 renderProfile(id),
                 renderLogout(),

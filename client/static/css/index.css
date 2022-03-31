@@ -41,10 +41,12 @@ body {
 
 #trackingContainer {
     margin: 80px;
+    order: 20 !important;
 }
 
 #profile {
     position: absolute;
+    left: -1vw;
     top: 80px;
     width: 100vw;
 }
@@ -93,6 +95,20 @@ input {
 }
 
 #registerButton {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 20px auto;
+    border-radius: 5px;
+    width: 300px;
+    border: 1px solid black;
+    color: black;
+    font-family: inherit;
+    font-size: inherit;
+    line-height: inherit;
+}
+
+#goToLoginButton {
     display: flex;
     flex-direction: column;
     align-items: center;

@@ -13,8 +13,13 @@ function renderRegisterForm() {
             form.appendChild(field);
         })
     })
+    let goToLoginButton = document.createElement('button')
+    goToLoginButton.id = "goToLoginButton"
+    goToLoginButton.innerText = "Login to your Account"
     form.addEventListener('submit', register)
     main.appendChild(form);
+    main.appendChild(goToLoginButton);
+    goToLoginButton.addEventListener('click', goToLogin)
   }
 
   function renderLoginForm() {
