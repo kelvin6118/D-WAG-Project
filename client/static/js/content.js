@@ -1,5 +1,6 @@
   let nav = 0;
   let clicked = null;
+  id = localStorage.getItem('userID')
 
   const trackingSection = document.createElement('section');
   trackingSection.id = "trackingContainer"
@@ -48,9 +49,9 @@
   const weekdays = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 
 
-async function loadCalendar() {
+async function loadCalendar(id) {
     //create container
-    let userInfo = await getUserInfo();
+    let userInfo = await getUserInfo(id);
     console.log("load Calendar " , userInfo);
 
     container.innerHTML = '';
@@ -104,7 +105,6 @@ async function loadCalendar() {
     monthDisplay.innerText = `${dt.toLocaleDateString('en-GB', { month: 'long'})} ${year}`
 
     calendar.innerHTML = '';
-    console.log(userInfo);
 
     for(let i = 1; i <= paddingDays + daysInMonth; i++){
       const daySquare = document.createElement('div');
@@ -122,6 +122,7 @@ async function loadCalendar() {
         userInfo.forEach(obj => {
           let eventDate = obj["tracker"].date;
           let habit = obj["habits"].id;
+          // console.log(eventDate)
           if(eventDate == daySquareDate){
             switch(habit){
               case 1:
@@ -150,6 +151,7 @@ async function loadCalendar() {
             }
           }
         })
+
 
         //marker = create element circle
         //marker.classList('water');
@@ -216,20 +218,20 @@ async function loadCalendar() {
   }
 
 
-function initButtons() {
+function initButtons(id) {
     nextButton.addEventListener('click', () => {
       nav++
-      loadCalendar();
+      loadCalendar(id);
     }
     );
     backButton.addEventListener('click', () => {
       nav--
-      loadCalendar();
+      loadCalendar(id);
     }
     );
 }
 
-initButtons();
+initButtons(id);
 
 
 

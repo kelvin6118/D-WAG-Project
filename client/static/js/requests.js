@@ -1,5 +1,4 @@
-
-let id = localStorage.getItem('userID')
+// let id = localStorage.getItem('userID')
 
 async function getUserInfo(id) {
     try {

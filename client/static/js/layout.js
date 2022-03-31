@@ -11,6 +11,7 @@ window.addEventListener('hashchange', updateContent);
 
 function updateMain(path) {
     id = localStorage.getItem('userID')
+    console.log(id)
     main.innerHTML = '';
     if (path) {
         switch(path){
@@ -27,7 +28,7 @@ function updateMain(path) {
                 renderLogout(),
                 renderHabit(),
                 trackedHabits(id),
-                loadCalendar();
+                loadCalendar(id);
                 break;
             default:
                 render404(); break;

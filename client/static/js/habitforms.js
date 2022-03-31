@@ -31,7 +31,7 @@ async function trackHabits(e) {
     console.log(e)
     e.preventDefault();
     let date = new Date().getDate();
-    let month = new Date().getMonth();
+    let month = new Date().toLocaleDateString('en-GB', { month: 'numeric'});;
     let year = new Date().getFullYear();
     usedDate = date + '/' + month + '/' + year
     try {
@@ -58,6 +58,7 @@ async function trackHabits(e) {
         const r = await fetch(`${url}/trackers`, options)
         const data = await r.json()
         console.log(data)
+        loadCalendar(id)
         if (data.err){ throw Error(data.err); }
     } catch (err) {
         console.warn(err);
