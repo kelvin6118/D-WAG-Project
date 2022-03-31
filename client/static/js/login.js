@@ -46,6 +46,8 @@ function goToLogin() {
     location.hash = `#login`;
 }
 
+module.exports = {requestLogin, login, logout, goToRegister, goToLogin}
+
 
  
 
