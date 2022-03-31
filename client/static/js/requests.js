@@ -40,3 +40,5 @@ async function getActivity(id){
         console.warn(err);
     }
 }
+
+module.exports = { getUserInfo, getDisplayName, getHabits, getActivity }
