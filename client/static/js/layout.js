@@ -8,6 +8,7 @@ const privateRoutes = ['#feed', '#profile'];
 window.addEventListener('hashchange', updateContent);
 
 
+
 function updateMain(path) {
     id = localStorage.getItem('userID')
     main.innerHTML = '';

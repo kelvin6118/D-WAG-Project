@@ -124,3 +124,44 @@ button {
   position: absolute;
   background-color: rgba(0,0,0,0.8);
 }
+
+.water {
+  align-items: center;
+  height: 15px;
+  width: 15px;
+  background-color: rgb(194, 16, 16);
+  border-radius: 50%;
+  /* position:relative; */
+  margin: 0 auto;
+}
+
+.sleep {
+  align-items: center;
+  height: 15px ;
+  width: 15px;
+  background-color: rgb(104, 35, 194);
+  border-radius: 50%;
+  /* position:relative; */
+  margin: 0 auto;
+}
+
+.read {
+  height: 15px;
+  width: 15px;
+  background-color: rgb(1, 248, 14);
+  border-radius: 50%;
+  align-items: center;
+  /* position:relative; */
+  margin: 0 auto;
+}
+
+.steps {
+  align-items: center;
+  height: 15px;
+  width: 15px;
+  background-color: rgb(247, 243, 11);
+  border-radius: 50%;
+  /* position:relative; */
+  margin: 0 auto;
+
+}

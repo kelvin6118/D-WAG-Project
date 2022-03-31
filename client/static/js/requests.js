@@ -1,3 +1,4 @@
+
 let id = localStorage.getItem('userID')
 
 async function getUserInfo(id) {
@@ -30,4 +31,3 @@ async function getActivity(id){
         console.warn(err);
     }
 }
-

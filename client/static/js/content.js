@@ -1,5 +1,3 @@
-//*********************  calendar generator **************** */
-
   let nav = 0;
   let clicked = null;
 
@@ -49,8 +47,12 @@
 
   const weekdays = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 
-  function loadCalendar() {
+
+async function loadCalendar() {
     //create container
+    let userInfo = await getUserInfo();
+    console.log("load Calendar " , userInfo);
+
     container.innerHTML = '';
 
     container.appendChild(header);
@@ -102,6 +104,7 @@
     monthDisplay.innerText = `${dt.toLocaleDateString('en-GB', { month: 'long'})} ${year}`
 
     calendar.innerHTML = '';
+    console.log(userInfo);
 
     for(let i = 1; i <= paddingDays + daysInMonth; i++){
       const daySquare = document.createElement('div');
@@ -109,6 +112,49 @@
 
       if(i > paddingDays){
         daySquare.innerText = i - paddingDays;
+
+        let date  = i - paddingDays;
+        let month = dt.toLocaleDateString('en-GB', { month: 'numeric'});
+        let daySquareDate = `${date}/${month}/${year}`;
+
+        let marker = document.createElement('span');
+
+        userInfo.forEach(obj => {
+          let eventDate = obj["tracker"].date;
+          let habit = obj["habits"].id;
+          if(eventDate == daySquareDate){
+            switch(habit){
+              case 1:
+                marker.classList.add("water");
+                daySquare.appendChild(marker);
+                console.log('found event Drink Water')
+                  break;
+              case 2:
+                marker.classList.add("sleep");
+                daySquare.appendChild(marker);
+                console.log('found event sleep')
+                  break;
+
+              case 3:
+                marker.classList.add("read");
+                daySquare.appendChild(marker);
+                console.log('found event read')
+                  break;
+              case 4:
+                marker.classList.add("steps");
+                daySquare.appendChild(marker);
+                console.log('found event steps')
+                  break;
+              default:
+                console.log('no event found');
+            }
+          }
+        })
+
+        //marker = create element circle
+        //marker.classList('water');
+        //daySquare.appendChild(marker)
+
       }else{
         daySquare.classList.add('padding');
       }
@@ -117,7 +163,60 @@
     main.appendChild(container);
   }
 
-  function initButtons() {
+  function DateCalculator(start, end){
+    var date1 = new Date(start);
+    var date2 = new Date(end);
+    var Difference_In_Time = date2.getTime() - date1.getTime();
+    var Difference_In_Days = Difference_In_Time / (1000 * 3600 * 24);
+
+    return Difference_In_Days;
+  }
+
+
+  // ********** future features function for streak [ CODE NOT IN USE YET ]************
+  function streakCounter(userInfo){
+    userInfo.reverse();
+    let start = "";
+    let end = "";
+    let counter = 0;
+    let activityCount = 0;
+    let streak = 0;
+
+
+    userInfo.forEach(obj => {
+      let eventDate = obj["tracker"].date;
+      let frequency = obj["activity"].frequency;
+
+      if(start === ""){
+        start = eventDate;
+      }else{
+        end = eventDate;
+        let dayDiff = DateCalculator(start, end);
+
+        if((counter + dayDiff) > 7){
+          activityCount = 0;
+          counter = counter - 7 + dayDiff;
+
+          if(activityCount > frequency){
+            streak ++;
+          }else{
+            streak = 0;
+          }
+
+          start = end;
+
+        }else{
+          activityCount++;
+          counter += dayDiff;
+          start = end;
+        }
+      }
+    })
+
+  }
+
+
+function initButtons() {
     nextButton.addEventListener('click', () => {
       nav++
       loadCalendar();
@@ -131,6 +230,7 @@
 }
 
 initButtons();
+
 
 
 async function renderProfile(id){
@@ -188,7 +288,7 @@ async function renderHabit(){
     selectForm.appendChild(numberInput);
     let habitOption;
     let selectedValue;
-    
+
     for(let i = 0; i < getHabitList.length; i++){
       habitOption = document.createElement('option');
       habitOption.id = `${getHabitList[i].id}`
@@ -200,7 +300,7 @@ async function renderHabit(){
     function getSelectedValue() {
       selectedValue = document.getElementById("habits").value;
       console.log(selectedValue)
-      
+
       if (selectedValue == `${getHabitList[0].id}`){
       text.innerText = "";
        text.innerText = `Choose how many glasses of water you want to drink`
@@ -215,7 +315,7 @@ async function renderHabit(){
        text.innerText = `Choose how many steps you want to do each day`
      }
     }
-    
+
     dropdown.addEventListener("change", getSelectedValue)
     const frequencyText = document.createElement('p');
     frequencyText.innerText = `How often would you like to track this a week?`
@@ -241,7 +341,7 @@ async function trackedHabits(id) {
     const submit = document.createElement('input')
     submit.type = 'submit';
     console.log(activityInfo)
-    
+
     for(let i = 0; i < activityInfo.length; i++){
       const habit = document.createElement('input');
       const habitLabel = document.createElement('label');

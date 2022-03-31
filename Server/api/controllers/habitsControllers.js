@@ -1,3 +1,4 @@
+
 const Habits = require('../models/Habits');
 
 async function display (req, res) {
@@ -10,3 +11,4 @@ async function display (req, res) {
 }
 
 module.exports = { display }
+
