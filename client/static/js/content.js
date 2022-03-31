@@ -163,13 +163,15 @@ async function renderHabit(){
     const selectForm = document.createElement('form');
     const dropdown = document.createElement('select');
     const habitTitle = document.createElement('label');
-    const textbox1 = document.createElement('input');
-    const textbox2 = document.createElement('input');
+    const numberInput = document.createElement('input');
+    const frequencyInput = document.createElement('input');
     const submit = document.createElement('input');
     const text = document.createElement('p');
     submit.type = 'submit';
-    textbox1.type = 'text';
-    textbox2.type = 'text';
+    numberInput.type = 'text';
+    numberInput.name = 'numberInput'
+    frequencyInput.type = 'text';
+    frequencyInput.name = 'frequencyInput'
     dropdown.name = "habits";
     dropdown.id = "habits";
     habitTitle.for = "habits";
@@ -179,7 +181,8 @@ async function renderHabit(){
     habitSection.appendChild(selectForm)
     selectForm.appendChild(dropdown);
     selectForm.appendChild(text);
-    selectForm.appendChild(textbox1);
+    text.innerText = "Please select a habit to add from the dropdown menu"
+    selectForm.appendChild(numberInput);
     let habitOption;
     let selectedValue;
     
@@ -211,19 +214,11 @@ async function renderHabit(){
     }
     
     dropdown.addEventListener("change", getSelectedValue)
-    
-
-    
-
-
-    const numberInput = document.createElement('input')
-    const frequencyInput = document.createElement('input')
     const frequencyText = document.createElement('p');
     frequencyText.innerText = `How often would you like to track this a week?`
 
-    
     selectForm.appendChild(frequencyText)
-    selectForm.appendChild(textbox2)
+    selectForm.appendChild(frequencyInput)
     selectForm.appendChild(submit)
 }
 
@@ -257,10 +252,10 @@ async function trackedHabits(username) {
     habitLabel.innerText = `${userInfo[i].habits.habitName}`;
 
     main.appendChild(trackingSection)
+    trackingSection.appendChild(title);
     trackingSection.appendChild(habitForm);
-    habitForm.appendChild(title);
-    habitForm.appendChild(habit);
     habitForm.appendChild(habitLabel);
+    habitForm.appendChild(habit);
     habitForm.appendChild(submit);
     }
 
