@@ -24,8 +24,27 @@ describe('User endpoints', () => {
         expect(res.statusCode).toEqual(200);
         console.log(res.body)
         expect(res.body).toEqual({id: 1,
-            username: 'Test',
+            username: 'Graingertom',
             password: 'qwerty',
             displayName: 'Tom'});
     }) 
+
+    it('should return all of the users input data', async () => {
+        const res = await request(api).get('/users/1');
+        expect(res.statusCode).toEqual(200);
+        console.log(res.body)
+        expect(res.body).toEqual([{"activity": {"frequency": 2, "habitID": 2, "id": 1, "number": 3}, "habits": {"habitName": "Drink Water TEST", "id": 1}, "id": 1, "tracker": {"date": "29/3/2022", "habitID": 1, "id": 1}, "userInfo": {"displayName": "Tom", "id": 1, "username": "Graingertom"}}, {"activity": {"frequency": 2, "habitID": 1, "id": 2, "number": 8}, "habits": {"habitName": "Sleep TEST", "id": 2}, "id": 2, "tracker": {"date": "30/3/2022", "habitID": 2, "id": 2}, "userInfo": {"displayName": "Tom", "id": 1, "username": "Graingertom"}}])
+    })
+
+    it('should post a login request from form inputs', async () => {
+        const res = await request(api)
+            .post('/users/login')
+            .send({
+                 username: 'Graingertom',
+                 password: ''
+            })
+            console.log(res.body)
+        expect(res.statusCode).toEqual(200);
+        expect(res.body).toHaveProperty("userID");
+    })
 })
