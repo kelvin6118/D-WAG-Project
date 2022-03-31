@@ -27,7 +27,6 @@ module.exports = class HabitsTracked {
                     habits : { id: u.habit_id, habitName: u.habit_name},
                     activity : { id: u.activity_id, habitID: u.activity_habit_id, frequency: u.frequency, number: u.number},
                     tracker : { id: u.tracker_id, habitID: u.tracker_habit_id, date: u.date} }))
-                console.log(userData)
                 resolve(user)
             } catch (err) {
                 reject('User not found')

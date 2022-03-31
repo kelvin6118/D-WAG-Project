@@ -188,8 +188,8 @@ async function renderHabit(){
     
     for(let i = 0; i < getHabitList.length; i++){
       habitOption = document.createElement('option');
-      habitOption.id = `${getHabitList[i].habit_name}`
-      habitOption.value = `${getHabitList[i].habit_name}`
+      habitOption.id = `${getHabitList[i].id}`
+      habitOption.value = `${getHabitList[i].id}`
       habitOption.innerText = `${getHabitList[i].habit_name}`;
       dropdown.appendChild(habitOption);
     }
@@ -198,13 +198,13 @@ async function renderHabit(){
       selectedValue = document.getElementById("habits").value;
       console.log(selectedValue)
       
-      if (selectedValue == `${getHabitList[0].habit_name}`){
+      if (selectedValue == `${getHabitList[0].id}`){
       text.innerText = "";
        text.innerText = `Choose how many glasses of water you want to drink`
-     } else if (selectedValue == `${getHabitList[1].habit_name}`){
+     } else if (selectedValue == `${getHabitList[1].id}`){
       text.innerText = "";
        text.innerText = `Choose how many hours of sleep you want to get nightly`
-     } else if (document.getElementById(`${getHabitList[2].habit_name}`).selected){
+     } else if (selectedValue == `${getHabitList[2].id}`){
       text.innerText = "";
        text.innerText = `Choose how many minutes of reading you want to do each day`
      } else {
@@ -220,6 +220,7 @@ async function renderHabit(){
     selectForm.appendChild(frequencyText)
     selectForm.appendChild(frequencyInput)
     selectForm.appendChild(submit)
+    selectForm.addEventListener('submit', newHabits)
 }
 
   function render404() {
@@ -245,9 +246,10 @@ async function trackedHabits(username) {
       const habit = document.createElement('input');
       const habitLabel = document.createElement('label');
       habit.type = 'checkbox';
+      habit.classList.add("habitBox");
       habit.id = `habit`+ `${userInfo[i].habits.id}`;
       habit.name = 'habit' + `${userInfo[i].habits.id}`;
-    habit.value = `${userInfo[i].habits.habitName}`;
+    habit.value = `${userInfo[i].habits.id}`;
     habitLabel.for = 'habit' + `${userInfo[i].habits.id}`;
     habitLabel.innerText = `${userInfo[i].habits.habitName}`;
 
@@ -258,6 +260,8 @@ async function trackedHabits(username) {
     habitForm.appendChild(habit);
     habitForm.appendChild(submit);
     }
+
+    habitForm.addEventListener('submit', trackHabits)
 
 
 }
