@@ -1,4 +1,4 @@
-describe('author endpoints', () => {
+describe('User endpoints', () => {
     let api;
     beforeEach(async () => {
         await resetTestDB()
@@ -16,16 +16,16 @@ describe('author endpoints', () => {
     it('should return a list of all users in database', async () => {
         const res = await request(api).get('/users');
         expect(res.statusCode).toEqual(200);
-        expect(res.body.length).toEqual(2);
+        expect(res.body.length).toEqual(1);
     })
     
     it('should return a list of info for a specific user', async () => {
-        const res = await request(api).get('/users/Graingertom');
+        const res = await request(api).get('/users/username/1');
         expect(res.statusCode).toEqual(200);
         console.log(res.body)
         expect(res.body).toEqual({id: 1,
-            username: 'Graingertom',
-            password: 'password',
+            username: 'Test',
+            password: 'qwerty',
             displayName: 'Tom'});
     }) 
 })
