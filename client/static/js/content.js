@@ -3,6 +3,9 @@
   let nav = 0;
   let clicked = null;
 
+  const trackingSection = document.createElement('section');
+  trackingSection.id = "trackingContainer"
+
   const container = document.createElement('div');
   container.setAttribute('id', 'container');
 
@@ -130,13 +133,13 @@
 initButtons();
 
 
-async function renderProfile(username){
+async function renderProfile(id){
     const profile = document.createElement('section');
     profile.id="profile"
     const greeting = document.createElement('h3');
-    const userInfo = await getUserInfo(username);
+    const userInfo = await getUserInfo(id);
     console.log(userInfo)
-    greeting.textContent = `Good to see you ${userInfo.displayName}!`;
+    greeting.textContent = `Good to see you ${userInfo[0].userInfo.displayName}!`;
     profile.appendChild(greeting);
     main.appendChild(profile);
 }
@@ -157,49 +160,108 @@ function renderFullLogo(){
     main.appendChild(fullLogo);
 }
 
-function renderHabit(){
-    const habitSection = document.createElement('section');
-    const title = document.createElement('h3');
-    title.textContent = `Habits you're tracking`
-    const habitList = document.createElement('ul');
-    const habit1 = document.createElement('li');
-    habit1.textContent = `Hit daily step count`;
-    const habit2 = document.createElement('li');
-    habit2.textContent = `Drink 3 glasses of water`;
-    const habit3 = document.createElement('li');
-    habit3.textContent = `Read for 30 minutes`;
+async function renderHabit(){
+    const getHabitList = await getHabits();
+    const habitSection = document.createElement('section')
+    const selectForm = document.createElement('form');
     const dropdown = document.createElement('select');
     const habitTitle = document.createElement('label');
-    const dailySteps = document.createElement('option');
-    const waterDrank = document.createElement('option');
-    const bookRead = document.createElement('option');
+    const numberInput = document.createElement('input');
+    const frequencyInput = document.createElement('input');
+    const submit = document.createElement('input');
+    const text = document.createElement('p');
+    submit.type = 'submit';
+    numberInput.type = 'text';
+    numberInput.name = 'numberInput'
+    frequencyInput.type = 'text';
+    frequencyInput.name = 'frequencyInput'
     dropdown.name = "habits";
     dropdown.id = "habits";
     habitTitle.for = "habits";
     habitTitle.innerText = "Track a new habit:";
-    dailySteps.value = "DailySteps";
-    dailySteps.innerText = "Daily Steps";
-    waterDrank.value = "WaterDrank";
-    waterDrank.innerText = "Water Drank";
-    bookRead.value = "BookRead";
-    bookRead.innerText = "Book Read";
-
     main.appendChild(habitSection);
-    habitSection.appendChild(title);
-    habitSection.appendChild(habitList);
-    habitList.appendChild(habit1);
-    habitList.appendChild(habit2);
-    habitList.appendChild(habit3);
     habitSection.appendChild(habitTitle);
-    habitSection.appendChild(dropdown);
-    dropdown.appendChild(dailySteps);
-    dropdown.appendChild(waterDrank);
-    dropdown.appendChild(bookRead);
+    habitSection.appendChild(selectForm)
+    selectForm.appendChild(dropdown);
+    selectForm.appendChild(text);
+    text.innerText = "Please select a habit to add from the dropdown menu"
+    selectForm.appendChild(numberInput);
+    let habitOption;
+    let selectedValue;
+    
+    for(let i = 0; i < getHabitList.length; i++){
+      habitOption = document.createElement('option');
+      habitOption.id = `${getHabitList[i].id}`
+      habitOption.value = `${getHabitList[i].id}`
+      habitOption.innerText = `${getHabitList[i].habit_name}`;
+      dropdown.appendChild(habitOption);
+    }
 
+    function getSelectedValue() {
+      selectedValue = document.getElementById("habits").value;
+      console.log(selectedValue)
+      
+      if (selectedValue == `${getHabitList[0].id}`){
+      text.innerText = "";
+       text.innerText = `Choose how many glasses of water you want to drink`
+     } else if (selectedValue == `${getHabitList[1].id}`){
+      text.innerText = "";
+       text.innerText = `Choose how many hours of sleep you want to get nightly`
+     } else if (selectedValue == `${getHabitList[2].id}`){
+      text.innerText = "";
+       text.innerText = `Choose how many minutes of reading you want to do each day`
+     } else {
+      text.innerText = "";
+       text.innerText = `Choose how many steps you want to do each day`
+     }
+    }
+    
+    dropdown.addEventListener("change", getSelectedValue)
+    const frequencyText = document.createElement('p');
+    frequencyText.innerText = `How often would you like to track this a week?`
+
+    selectForm.appendChild(frequencyText)
+    selectForm.appendChild(frequencyInput)
+    selectForm.appendChild(submit)
+    selectForm.addEventListener('submit', newHabits)
 }
 
   function render404() {
     const error = document.createElement('h2');
     error.textContent = "Oops, we can't find that page sorry!";
     main.appendChild(error);
+}
+
+async function trackedHabits(id) {
+  trackingSection.innerHTML = ""
+  const activityInfo = await getActivity(id)
+    const habitForm = document.createElement('form');
+    const title = document.createElement('h3');
+    title.textContent = `Habits you're tracking`;
+    const submit = document.createElement('input')
+    submit.type = 'submit';
+    console.log(activityInfo)
+    
+    for(let i = 0; i < activityInfo.length; i++){
+      const habit = document.createElement('input');
+      const habitLabel = document.createElement('label');
+      habit.type = 'checkbox';
+      habit.classList.add("habitBox");
+      habit.id = `habit`+ `${activityInfo[i].habitID}`;
+      habit.name = 'habit' + `${activityInfo[i].habitID}`;
+    habit.value = `${activityInfo[i].habitID}`;
+    habitLabel.for = 'habit' + `${activityInfo[i].habitID}`;
+    habitLabel.innerText = `${activityInfo[i].habitName}`;
+
+    habitForm.appendChild(habitLabel);
+    habitForm.appendChild(habit);
+    habitForm.appendChild(submit);
+    }
+
+    main.appendChild(trackingSection)
+    trackingSection.appendChild(title);
+    trackingSection.appendChild(habitForm);
+    habitForm.addEventListener('submit', trackHabits)
+
+
 }

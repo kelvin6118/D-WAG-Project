@@ -1,4 +1,4 @@
-const url = "http://localhost:3000"
+let url = "http://localhost:3000"
 
 async function requestLogin(e) {
     console.log(e)
@@ -27,6 +27,7 @@ async function requestLogin(e) {
 
 function login(data) {
     localStorage.setItem('username', data.user);
+    localStorage.setItem('userID', data.userID)
     location.hash = `#dashboard`;
 }
 
