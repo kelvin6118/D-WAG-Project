@@ -8,9 +8,7 @@ async function register(e) {
     }
     // console.log(options.body)
     const response = await fetch('http://localhost:3000/users', options);
-    console.log(options.body)
     const data = await response.json();
-    console.log(data)
     if(data.err) {
       throw Error(data.err)
     } else {
@@ -23,3 +21,5 @@ async function register(e) {
   }
 
 }
+
+module.exports = { register }
