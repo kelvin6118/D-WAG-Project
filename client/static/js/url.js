@@ -1,1 +1,1 @@
-module.exports = "https://d-wag-habit.herokuapp.com/"
+module.exports = "https://d-wag-habit.herokuapp.com"
