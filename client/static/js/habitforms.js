@@ -1,4 +1,4 @@
-url = "https://d-wag-habit.herokuapp.com/"
+url = "https://d-wag-habit.herokuapp.com"
 
 async function newHabits(e) {
     console.log(e)
