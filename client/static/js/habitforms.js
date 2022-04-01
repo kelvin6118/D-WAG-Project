@@ -1,4 +1,4 @@
-url = "http://localhost:3000"
+url = "https://d-wag-habit.herokuapp.com/"
 
 async function newHabits(e) {
     console.log(e)

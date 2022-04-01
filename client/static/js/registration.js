@@ -1,3 +1,5 @@
+url = "https://d-wag-habit.herokuapp.com/"
+
 async function register(e) {
   e.preventDefault();
   try {
@@ -7,7 +9,7 @@ async function register(e) {
       body: JSON.stringify(Object.fromEntries(new FormData(e.target)))
     }
     // console.log(options.body)
-    const response = await fetch('http://localhost:3000/users', options);
+    const response = await fetch(`${url}`, options);
     console.log(options.body)
     const data = await response.json();
     console.log(data)
