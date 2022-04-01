@@ -8,9 +8,9 @@ async function requestLogin(e) {
             username: e.target.username.value,
             password: e.target.password.value
         }
-        
+
         const options =  {
-            method: 'POST', 
+            method: 'POST',
             body: JSON.stringify(messageData),
             headers: { "Content-Type": "application/json"}
         };
@@ -46,6 +46,4 @@ function goToLogin() {
     location.hash = `#login`;
 }
 
-
- 
-
+gsap.from("#fullLogo", {duration: 1, x: 100});
