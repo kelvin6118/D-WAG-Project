@@ -41,6 +41,10 @@ function goToRegister() {
     location.hash = `#register`;
 }
 
+function goToLogin() {
+    localStorage.clear();
+    location.hash = `#login`;
+}
 
 
  

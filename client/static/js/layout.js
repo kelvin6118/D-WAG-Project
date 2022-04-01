@@ -1,5 +1,5 @@
 // const nav = document.querySelector('nav');
-const main = document.querySelector('main');
+let main = document.querySelector('main');
 
 
 const publicRoutes = ['#', '#login', '#register'];
@@ -18,10 +18,11 @@ function updateMain(path) {
             case '#login':
                 renderFullLogo(),
                 renderLoginForm(); break;
-            case '#register':
+                case '#register':
                 renderFullLogo(),
                 renderRegisterForm(); break;
-            case '#dashboard':
+                case '#dashboard':
+                main.appendChild(dashboard)
                 renderlogo(),
                 renderProfile(id),
                 renderLogout(),

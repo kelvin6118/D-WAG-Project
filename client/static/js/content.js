@@ -2,8 +2,17 @@
   let clicked = null;
   id = localStorage.getItem('userID')
 
+  main = document.querySelector('main');
+  let body = document.querySelector('body');
+
   const trackingSection = document.createElement('section');
   trackingSection.id = "trackingContainer"
+
+  const dashboard = document.createElement('div');
+  dashboard.id = "dashboard"
+  dashboard.classList.add("container")
+
+  const habitSection = document.createElement('section')
 
   const container = document.createElement('div');
   container.setAttribute('id', 'container');
@@ -32,19 +41,19 @@
   calendar.setAttribute('id', 'calendar');
 
   const Sunday = document.createElement('div');
-  Sunday.innerText = 'Sunday';
+  Sunday.innerText = 'Sun';
   const Monday = document.createElement('div');
-  Monday.innerText = 'Monday';
+  Monday.innerText = 'Mon';
   const Tuesday = document.createElement('div');
-  Tuesday.innerText = 'Tuesday';
+  Tuesday.innerText = 'Tue';
   const Wednesday = document.createElement('div');
-  Wednesday.innerText = 'Wednesday';
+  Wednesday.innerText = 'Wed';
   const Thursday = document.createElement('div');
-  Thursday.innerText = 'Thursday';
+  Thursday.innerText = 'Thur';
   const Friday = document.createElement('div');
-  Friday.innerText = 'Friday';
+  Friday.innerText = 'Fri';
   const Saturday = document.createElement('div');
-  Saturday.innerText = 'Saturday';
+  Saturday.innerText = 'Sat';
 
   const weekdays = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 
@@ -161,7 +170,7 @@ async function loadCalendar(id) {
       }
       calendar.appendChild(daySquare)
     }
-    main.appendChild(container);
+    dashboard.appendChild(container);
   }
 
   function DateCalculator(start, end){
@@ -217,7 +226,8 @@ async function loadCalendar(id) {
   }
 
 
-function initButtons(id) {
+function initButtons() {
+  id = localStorage.getItem('userID')
     nextButton.addEventListener('click', () => {
       nav++
       loadCalendar(id);
@@ -230,7 +240,7 @@ function initButtons(id) {
     );
 }
 
-initButtons(id);
+initButtons();
 
 
 
@@ -247,6 +257,7 @@ async function renderProfile(id){
 
 function renderlogo(){
     const logo = document.createElement('img');
+    logo.id = "logo"
     logo.src = `./static/resources/Habitrack logo.png`;
     logo.width = "300";
     logo.height = "300";
@@ -255,6 +266,7 @@ function renderlogo(){
 
 function renderFullLogo(){
     const fullLogo = document.createElement('img');
+    fullLogo.id = "fullLogo"
     fullLogo.src = `./static/resources/Habitrack full.png`;
     fullLogo.width = "300";
     fullLogo.height = "300";
@@ -263,7 +275,7 @@ function renderFullLogo(){
 
 async function renderHabit(){
     const getHabitList = await getHabits();
-    const habitSection = document.createElement('section')
+    habitSection.id = "habitSection"
     const selectForm = document.createElement('form');
     const dropdown = document.createElement('select');
     const habitTitle = document.createElement('label');
@@ -271,6 +283,7 @@ async function renderHabit(){
     const frequencyInput = document.createElement('input');
     const submit = document.createElement('input');
     const text = document.createElement('p');
+    text.id = "p";
     submit.type = 'submit';
     numberInput.type = 'text';
     numberInput.name = 'numberInput'
@@ -280,7 +293,6 @@ async function renderHabit(){
     dropdown.id = "habits";
     habitTitle.for = "habits";
     habitTitle.innerText = "Track a new habit:";
-    main.appendChild(habitSection);
     habitSection.appendChild(habitTitle);
     habitSection.appendChild(selectForm)
     selectForm.appendChild(dropdown);
@@ -320,6 +332,7 @@ async function renderHabit(){
     dropdown.addEventListener("change", getSelectedValue)
     const frequencyText = document.createElement('p');
     frequencyText.innerText = `How often would you like to track this a week?`
+    frequencyText.id = "t"
 
     selectForm.appendChild(frequencyText)
     selectForm.appendChild(frequencyInput)
@@ -337,6 +350,7 @@ async function trackedHabits(id) {
   trackingSection.innerHTML = ""
   const activityInfo = await getActivity(id)
     const habitForm = document.createElement('form');
+    habitForm.id = "habitForm"
     const title = document.createElement('h3');
     title.textContent = `Habits you're tracking`;
     const submit = document.createElement('input')
@@ -344,24 +358,57 @@ async function trackedHabits(id) {
     console.log(activityInfo)
 
     for(let i = 0; i < activityInfo.length; i++){
+      const div = document.createElement('div');
       const habit = document.createElement('input');
       const habitLabel = document.createElement('label');
+      habitLabel.id = `habit`+`${activityInfo[i].habitID}`;
       habit.type = 'checkbox';
       habit.classList.add("habitBox");
       habit.id = `habit`+ `${activityInfo[i].habitID}`;
       habit.name = 'habit' + `${activityInfo[i].habitID}`;
     habit.value = `${activityInfo[i].habitID}`;
-    habitLabel.for = 'habit' + `${activityInfo[i].habitID}`;
-    habitLabel.innerText = `${activityInfo[i].habitName}`;
+    habitLabel.setAttribute("for",`habit`+`${activityInfo[i].habitID}`);
+    switch(activityInfo[i].habitID){
+      case 1:
+        if(activityInfo[i].number == 1){
+          habitLabel.innerText = `${activityInfo[i].habitName} ${activityInfo[i].number} glass a day, ${activityInfo[i].frequency} times a week`;
+        }else{
+        habitLabel.innerText = `${activityInfo[i].habitName} ${activityInfo[i].number} glasses a day, ${activityInfo[i].frequency} times a week`;}
+          break;
+      case 2:
+        if(activityInfo[i].number == 1){
+          habitLabel.innerText = `${activityInfo[i].habitName} ${activityInfo[i].number} hour a day, ${activityInfo[i].frequency} times a week`;
+        }else{
+        habitLabel.innerText = `${activityInfo[i].habitName} ${activityInfo[i].number} hours a day, ${activityInfo[i].frequency} times a week`;}
+          break;
 
-    habitForm.appendChild(habitLabel);
-    habitForm.appendChild(habit);
+      case 3:
+        if(activityInfo[i].number == 1){
+          habitLabel.innerText = `${activityInfo[i].habitName} ${activityInfo[i].number} minute a day, ${activityInfo[i].frequency} times a week`;
+        }else{
+        habitLabel.innerText = `${activityInfo[i].habitName} ${activityInfo[i].number} minutes a day, ${activityInfo[i].frequency} times a week`;}
+          break;
+      case 4:
+        if(activityInfo[i].number == 1){
+          habitLabel.innerText = `${activityInfo[i].habitName} ${activityInfo[i].number} step a day, ${activityInfo[i].frequency} times a week`;
+        }else{
+        habitLabel.innerText = `${activityInfo[i].habitName} ${activityInfo[i].number} steps a day, ${activityInfo[i].frequency} times a week`;}
+          break;
+      default:
+        console.log('no event found');
+    }
+
+    
+    habitForm.appendChild(div);
+    div.appendChild(habitLabel);
+    div.appendChild(habit);
     habitForm.appendChild(submit);
     }
 
-    main.appendChild(trackingSection)
+    dashboard.appendChild(trackingSection)
     trackingSection.appendChild(title);
     trackingSection.appendChild(habitForm);
+    trackingSection.appendChild(habitSection);
     habitForm.addEventListener('submit', trackHabits)
 
 

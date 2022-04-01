@@ -2,7 +2,7 @@ TRUNCATE users, userTrackers, activityTrackers, habitsTracked, habits RESTART ID
 
 INSERT INTO users (username, password, display_name)
 VALUES
-('Test', 'qwerty', 'Tom');
+('Graingertom', 'qwerty', 'Tom');
 
 INSERT INTO userTrackers (user_ID, habit_ID, date)
 VALUES

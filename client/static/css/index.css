@@ -1,9 +1,10 @@
 * { box-sizing: border-box; }
+@import url('https://fonts.googleapis.com/css2?family=Boogaloo&display=swap');
 
 body {
     text-align: center;
     font-family: Arial, Helvetica, sans-serif;
-    color: #3b5998;
+    color: rgb(56, 56, 56);
     font-weight: bold;
 }
 
@@ -18,7 +19,60 @@ body {
     color: white;
 } */
 
-#logo { width: 100%; }
+#logo {
+    position: absolute;
+    top: 4%;
+    left: 8%;
+    border: 0.5px solid #554444;
+    border-radius: 50%;
+    object-fit: cover;
+    padding: 5px;
+    width: 90px;
+    height: 90px;
+}
+
+
+#fullLogo{
+    border: 0.5px solid #554444;
+    border-radius: 50%;
+    object-fit: cover;
+    padding: 20px;
+    width: 250px;
+    height: 250px;
+    margin-bottom: 20px;
+}
+
+
+#logoutForm {
+    position: absolute;
+    top: 4%;
+    right: 8%;
+    border-radius: 350px;
+}
+
+#dashboard {
+    display: flex;
+    margin-top: 200px;
+    flex-direction: row;
+}
+
+#trackingContainer {
+    margin: 0px 6%;
+    order: 20 !important;
+}
+
+#profile {
+    position: absolute;
+    left: -1vw;
+    top: 80px;
+    width: 100vw;
+}
+
+#profile h3 {
+    text-align: center;
+    font-family: 'Boogaloo', cursive;
+    font-size: 50px;
+}
 
 a { text-decoration: none; }
 
@@ -48,7 +102,6 @@ a { text-decoration: none; }
 form {
     display: flex;
     flex-direction: column;
-    padding: 50px;
     margin: 20px auto;
     border-radius: 5px;
 }
@@ -58,6 +111,92 @@ input {
     margin: 5px;
 }
 
+#registerButton {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 20px auto;
+    border-radius: 5px;
+    width: 300px;
+    border: 1px solid black;
+    color: black;
+    font-family: inherit;
+    font-size: inherit;
+    line-height: inherit;
+}
+
+#goToLoginButton {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 20px auto;
+    border-radius: 5px;
+    width: 300px;
+    border: 1px solid black;
+    color: black;
+    font-family: inherit;
+    font-size: inherit;
+    line-height: inherit;
+}
+
+#habitForm {
+    border: 1px solid red;
+    border-radius: 20px;
+    padding: 10px;
+}
+
+#habitSection {
+    border: 1px solid red;
+    border-radius: 20px;
+    padding: 10px;
+}
+
+form div label {
+    display: inline-block;
+    margin-right: 2px;
+    width: 44%;
+}
+
+#habit1 {
+    color: red;
+}
+
+#habit2 {
+    color: purple;
+}
+
+#habit3 {
+    color: green;
+}
+
+#habit4 {
+    color: blue;
+}
+
+
+#p , #t {
+margin-top: 20px;
+margin-bottom: 10px;
+}
+
+form div {
+    margin-bottom: 10px;
+}
+
+
 .disabled {
     opacity: 0.3;
+}
+
+@media screen and (max-width: 660px) {
+    #dashboard {
+        flex-basis: 100%;
+    }
+}
+
+@media screen and (max-width: 500px) {
+    #dashboard {
+        flex-basis: 100%;
+        flex-direction: column;
+    }
 }
