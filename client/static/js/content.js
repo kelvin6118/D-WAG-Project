@@ -41,19 +41,19 @@
   calendar.setAttribute('id', 'calendar');
 
   const Sunday = document.createElement('div');
-  Sunday.innerText = 'Sunday';
+  Sunday.innerText = 'Sun';
   const Monday = document.createElement('div');
-  Monday.innerText = 'Monday';
+  Monday.innerText = 'Mon';
   const Tuesday = document.createElement('div');
-  Tuesday.innerText = 'Tuesday';
+  Tuesday.innerText = 'Tue';
   const Wednesday = document.createElement('div');
-  Wednesday.innerText = 'Wednesday';
+  Wednesday.innerText = 'Wed';
   const Thursday = document.createElement('div');
-  Thursday.innerText = 'Thursday';
+  Thursday.innerText = 'Thur';
   const Friday = document.createElement('div');
-  Friday.innerText = 'Friday';
+  Friday.innerText = 'Fri';
   const Saturday = document.createElement('div');
-  Saturday.innerText = 'Saturday';
+  Saturday.innerText = 'Sat';
 
   const weekdays = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 
@@ -282,6 +282,7 @@ async function renderHabit(){
     const frequencyInput = document.createElement('input');
     const submit = document.createElement('input');
     const text = document.createElement('p');
+    text.id = "p";
     submit.type = 'submit';
     numberInput.type = 'text';
     numberInput.name = 'numberInput'
@@ -314,19 +315,15 @@ async function renderHabit(){
 
       if (selectedValue == `${getHabitList[0].id}`){
       text.innerText = "";
-      text.style.color = "red"
        text.innerText = `Choose how many glasses of water you want to drink`
      } else if (selectedValue == `${getHabitList[1].id}`){
       text.innerText = "";
-      text.style.color = "purple"
        text.innerText = `Choose how many hours of sleep you want to get nightly`
      } else if (selectedValue == `${getHabitList[2].id}`){
       text.innerText = "";
-      text.style.color = "green"
        text.innerText = `Choose how many minutes of reading you want to do each day`
      } else {
       text.innerText = "";
-      text.style.color = "yellow"
        text.innerText = `Choose how many steps you want to do each day`
      }
     }
@@ -334,6 +331,7 @@ async function renderHabit(){
     dropdown.addEventListener("change", getSelectedValue)
     const frequencyText = document.createElement('p');
     frequencyText.innerText = `How often would you like to track this a week?`
+    frequencyText.id = "t"
 
     selectForm.appendChild(frequencyText)
     selectForm.appendChild(frequencyInput)
@@ -359,18 +357,22 @@ async function trackedHabits(id) {
     console.log(activityInfo)
 
     for(let i = 0; i < activityInfo.length; i++){
+      const div = document.createElement('div');
       const habit = document.createElement('input');
       const habitLabel = document.createElement('label');
+      habitLabel.id = `habit`+`${activityInfo[i].habitID}`;
       habit.type = 'checkbox';
       habit.classList.add("habitBox");
       habit.id = `habit`+ `${activityInfo[i].habitID}`;
       habit.name = 'habit' + `${activityInfo[i].habitID}`;
     habit.value = `${activityInfo[i].habitID}`;
-    habitLabel.for = 'habit' + `${activityInfo[i].habitID}`;
+    habitLabel.setAttribute("for",`habit`+`${activityInfo[i].habitID}`);
     habitLabel.innerText = `${activityInfo[i].habitName}`;
 
-    habitForm.appendChild(habitLabel);
-    habitForm.appendChild(habit);
+    
+    habitForm.appendChild(div);
+    div.appendChild(habitLabel);
+    div.appendChild(habit);
     habitForm.appendChild(submit);
     }
 

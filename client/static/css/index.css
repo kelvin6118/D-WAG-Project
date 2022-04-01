@@ -40,7 +40,7 @@ body {
 }
 
 #trackingContainer {
-    margin: 80px;
+    margin: 0px 6%;
     order: 20 !important;
 }
 
@@ -133,6 +133,39 @@ input {
     border-radius: 20px;
     padding: 10px;
 }
+
+form div label {
+    display: inline-block;
+    margin-right: 2px;
+    width: 44%;
+}
+
+#habit1 {
+    color: red;
+}
+
+#habit2 {
+    color: purple;
+}
+
+#habit3 {
+    color: green;
+}
+
+#habit4 {
+    color: blue;
+}
+
+
+#p , #t {
+margin-top: 20px;
+margin-bottom: 10px;
+}
+
+form div {
+    margin-bottom: 10px;
+}
+
 
 .disabled {
     opacity: 0.3;
