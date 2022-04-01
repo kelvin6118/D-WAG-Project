@@ -274,6 +274,7 @@ function renderFullLogo(){
 }
 
 async function renderHabit(){
+  habitSection.innerHTML = ""
     const getHabitList = await getHabits();
     habitSection.id = "habitSection"
     const selectForm = document.createElement('form');
