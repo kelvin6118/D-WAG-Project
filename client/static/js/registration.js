@@ -9,7 +9,7 @@ async function register(e) {
       body: JSON.stringify(Object.fromEntries(new FormData(e.target)))
     }
     // console.log(options.body)
-    const response = await fetch(`${url}`, options);
+    const response = await fetch(`${url}/users`, options);
     console.log(options.body)
     const data = await response.json();
     console.log(data)

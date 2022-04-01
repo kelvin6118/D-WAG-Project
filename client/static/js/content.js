@@ -226,7 +226,8 @@ async function loadCalendar(id) {
   }
 
 
-function initButtons(id) {
+function initButtons() {
+  id = localStorage.getItem('userID')
     nextButton.addEventListener('click', () => {
       nav++
       loadCalendar(id);
@@ -239,7 +240,7 @@ function initButtons(id) {
     );
 }
 
-initButtons(id);
+initButtons();
 
 
 
@@ -367,7 +368,35 @@ async function trackedHabits(id) {
       habit.name = 'habit' + `${activityInfo[i].habitID}`;
     habit.value = `${activityInfo[i].habitID}`;
     habitLabel.setAttribute("for",`habit`+`${activityInfo[i].habitID}`);
-    habitLabel.innerText = `${activityInfo[i].habitName}`;
+    switch(activityInfo[i].habitID){
+      case 1:
+        if(activityInfo[i].number == 1){
+          habitLabel.innerText = `${activityInfo[i].habitName} ${activityInfo[i].number} glass a day, ${activityInfo[i].frequency} times a week`;
+        }else{
+        habitLabel.innerText = `${activityInfo[i].habitName} ${activityInfo[i].number} glasses a day, ${activityInfo[i].frequency} times a week`;}
+          break;
+      case 2:
+        if(activityInfo[i].number == 1){
+          habitLabel.innerText = `${activityInfo[i].habitName} ${activityInfo[i].number} hour a day, ${activityInfo[i].frequency} times a week`;
+        }else{
+        habitLabel.innerText = `${activityInfo[i].habitName} ${activityInfo[i].number} hours a day, ${activityInfo[i].frequency} times a week`;}
+          break;
+
+      case 3:
+        if(activityInfo[i].number == 1){
+          habitLabel.innerText = `${activityInfo[i].habitName} ${activityInfo[i].number} minute a day, ${activityInfo[i].frequency} times a week`;
+        }else{
+        habitLabel.innerText = `${activityInfo[i].habitName} ${activityInfo[i].number} minutes a day, ${activityInfo[i].frequency} times a week`;}
+          break;
+      case 4:
+        if(activityInfo[i].number == 1){
+          habitLabel.innerText = `${activityInfo[i].habitName} ${activityInfo[i].number} step a day, ${activityInfo[i].frequency} times a week`;
+        }else{
+        habitLabel.innerText = `${activityInfo[i].habitName} ${activityInfo[i].number} steps a day, ${activityInfo[i].frequency} times a week`;}
+          break;
+      default:
+        console.log('no event found');
+    }
 
     
     habitForm.appendChild(div);
