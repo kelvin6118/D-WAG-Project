@@ -1,4 +1,4 @@
-let url = "http://localhost:3000"
+let url = "https://d-wag-habit.herokuapp.com/"
 
 async function requestLogin(e) {
     console.log(e)
