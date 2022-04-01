@@ -1,5 +1,5 @@
 // let id = localStorage.getItem('userID')
-url = "https://d-wag-habit.herokuapp.com"
+url = "https://localhost:3000"
 
 async function getUserInfo(id) {
     try {

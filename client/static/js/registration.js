@@ -1,4 +1,4 @@
-url = "https://d-wag-habit.herokuapp.com"
+url = "https://localhost:3000"
 
 async function register(e) {
   e.preventDefault();
