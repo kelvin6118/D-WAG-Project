@@ -1,4 +1,4 @@
-let url = "https://localhost:3000"
+let url = "http://localhost:3000"
 
 async function requestLogin(e) {
     console.log(e)
