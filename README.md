@@ -9,7 +9,7 @@
 
 ### Usage
 
-- Run `insert our bash script here` to launch the database, server and client.
+- Run `bash _scripts/startDev.sh` to launch the database, server and client.
 - use `http://localhost:3000` to access the database using the routes below or `http://localhost:8000` to access the client.
 
 ## Features
